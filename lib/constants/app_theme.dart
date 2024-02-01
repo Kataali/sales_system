@@ -10,7 +10,7 @@ ThemeData themeData() {
         onSecondary: const Color.fromRGBO(52, 197, 89, 1),
         background: const Color.fromRGBO(245, 246, 250, 1),
         onTertiary: const Color.fromRGBO(255, 152, 31, 1),
-        tertiary: const Color.fromRGBO(143, 149, 158, 1),
+        tertiary: const Color.fromRGBO(235, 238, 239, 1.0),
         onBackground: const Color.fromRGBO(255, 87, 87, 1)),
     appBarTheme: const AppBarTheme(
       color: Colors.white,
