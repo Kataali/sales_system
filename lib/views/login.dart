@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_system/views/dashboard_view.dart';
 
 
 
@@ -102,7 +103,7 @@ Size screenSize = MediaQuery.of(context).size;
                       backgroundColor: Color(0x364b4e),
                     ),
                     onPressed: () {
-                        // Navigator.push(context, MaterialPageRoute(builder: (BuildContext contect) => ComplaintsPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (BuildContext contect) => dashboard()));
                         
                       // Add login logic here
                     },
