@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sales_system/views/manage_inventory_view.dart';
 
-import 'views/login.dart';
+import 'constants/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,14 +16,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Food Sales System.',
-      theme: ThemeData( 
-        // colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
-        useMaterial3: true,
-      ),
-      home: LoginPage(),
+      theme: themeData(),
+      home: const ManageInventoryView(),
     );
   }
 }
-
-
-
