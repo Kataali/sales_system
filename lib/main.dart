@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/views/manage_inventory_view.dart';
+import 'package:sales_system/views/dashboard_view.dart';
 
 import 'constants/app_theme.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Food Sales System.',
       theme: themeData(),
-      home: const ManageInventoryView(),
+      home: const DashboardView(),
     );
   }
 }
