@@ -25,17 +25,17 @@ class IncomePieChart extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Indicator(
-                title: "Other",
+                title: "Chicken",
                 color: Colors.blue,
                 spaceOccupied: 40,
               ),
               Indicator(
-                title: "Thighs",
+                title: "Gizzard",
                 color: Colors.red,
                 spaceOccupied: 30,
               ),
               Indicator(
-                title: "Wings",
+                title: "Sausage",
                 color: Colors.cyan,
                 spaceOccupied: 10,
               ),
