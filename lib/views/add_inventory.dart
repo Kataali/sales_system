@@ -8,19 +8,19 @@ class AddInventoryView extends StatefulWidget {
 }
 
 class _AddInventoryViewState extends State<AddInventoryView> {
+  String? dropDownValue = "Chicken";
+
+  var items = [
+    'Chicken',
+    'Gizzard',
+    'Liver',
+    'Beef',
+    'Fish',
+  ];
+
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
-
-    String dropDownValue = "Chicken";
-
-    var items = [
-      'Chicken',
-      'Gizzard',
-      'Liver',
-      'Beef',
-      'Fish',
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -98,8 +98,7 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                         // change button value to selected value
                         onChanged: (String? newValue) {
                           setState(() {
-                            print(newValue);
-                            dropDownValue = newValue!;
+                            dropDownValue = newValue;
                           });
                         },
                       ),
