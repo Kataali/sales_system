@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../widgets/dashboard_card.dart';
 import '../widgets/pie_chart.dart';
-import '../widgets/sidebar.dart';
 import '../widgets/sidepane.dart';
 
 class DashboardView extends StatefulWidget {
+  static const routeName = '/dashboard';
+
   const DashboardView({super.key});
 
   @override

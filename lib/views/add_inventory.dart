@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AddInventoryView extends StatefulWidget {
+  static const routeName = '/add_inventory';
+
   const AddInventoryView({super.key});
 
   @override

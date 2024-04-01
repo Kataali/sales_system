@@ -1,22 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/views/dashboard_view.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginView extends StatelessWidget {
+  static const routeName = '/login';
+
+  const LoginView({super.key});
+
   @override
   Widget build(BuildContext context) {
     Size screenSize = MediaQuery.of(context).size;
 
-    double LWidth = screenSize.width; // 80% of screen width
-    double LHeight = screenSize.height; // 50% of screen height
+    double lWidth = screenSize.width; // 80% of screen width
+    double lHeight = screenSize.height; // 50% of screen height
 
     return Scaffold(
-      backgroundColor: Color.fromARGB(255, 54, 75, 78),
+      backgroundColor: const Color.fromARGB(255, 54, 75, 78),
       body: Center(
         child: Padding(
           padding: const EdgeInsets.all(10.0),
           child: Container(
-            width: LWidth * 0.6,
-            padding: EdgeInsets.all(20),
+            width: lWidth * 0.6,
+            padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),
               // boxShadow: [
@@ -31,11 +35,11 @@ class LoginPage extends StatelessWidget {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Container(
+                const SizedBox(
                   height: 300,
                   child: Image(image: AssetImage("assets/logo.png")),
                 ),
-                Text(
+                const Text(
                   '',
                   textAlign: TextAlign.center,
                   style: TextStyle(
@@ -43,50 +47,50 @@ class LoginPage extends StatelessWidget {
                       fontSize: 30,
                       fontWeight: FontWeight.bold),
                 ),
-                Text(
+                const Text(
                   'Login',
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 24,
                       fontWeight: FontWeight.bold),
                 ),
-                SizedBox(height: 5),
-                Container(
-                  width: LWidth * 0.3,
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: lWidth * 0.3,
                   child: TextFormField(
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelStyle: TextStyle(color: Colors.white),
                       labelText: 'Username',
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
-                Container(
-                  width: LWidth * 0.3,
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: lWidth * 0.3,
                   child: TextFormField(
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
                     obscureText: true,
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelStyle: TextStyle(color: Colors.white),
                       labelText: 'Password',
                       border: OutlineInputBorder(borderSide: BorderSide.none),
                     ),
                   ),
                 ),
-                SizedBox(height: 5),
-                Container(
+                const SizedBox(height: 5),
+                SizedBox(
                   height: 50,
-                  width: LWidth * 0.3,
+                  width: lWidth * 0.3,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       foregroundColor: Colors.white,
-                      backgroundColor: Color(0x364b4e),
+                      backgroundColor: const Color(0x364b4e),
                     ),
                     onPressed: () {
                       Navigator.push(
@@ -97,7 +101,7 @@ class LoginPage extends StatelessWidget {
 
                       // Add login logic here
                     },
-                    child: Text('Login'),
+                    child: const Text('Login'),
                   ),
                 ),
               ],

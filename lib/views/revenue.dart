@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/appbar.dart';
 import '../widgets/line_chart.dart';
 
 class RevenueView extends StatelessWidget {
+  static const routeName = '/revenue';
+
   const RevenueView({super.key});
 
   @override

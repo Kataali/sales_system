@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 class ManageInventoryView extends StatefulWidget {
+  static const routeName = '/manage_inventory';
+
   const ManageInventoryView({super.key});
 
   @override
@@ -68,7 +70,7 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                       headingTextStyle: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontStyle: FontStyle.italic,
-                      color: color.onPrimary),
+                          color: color.onPrimary),
                       headingRowColor:
                           MaterialStateProperty.all(color.inversePrimary),
                       columns: List.generate(

@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/views/checkout.dart';
 import 'package:sales_system/widgets/product_checkout_card.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
 import 'package:sales_system/widgets/sidepane.dart';
 
-import '../widgets/appbar.dart';
-
 class HomeView extends StatefulWidget {
+  static const routeName = '/home';
+
   const HomeView({super.key});
 
   @override
