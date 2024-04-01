@@ -14,6 +14,16 @@ class DashboardView extends StatefulWidget {
 }
 
 class _DashboardState extends State<DashboardView> {
+  // final int indexPosition = 1;
+  @override
+  // void initState() {
+  //   setState(() {
+  //     indexPosition = 1;
+  //   });
+
+  //   super.initState();
+  // }
+
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
@@ -36,7 +46,9 @@ class _DashboardState extends State<DashboardView> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const SideBar(),
+            const SideBar(
+              currentIndex: 1,
+            ),
             Column(
               children: [
                 Padding(

@@ -27,7 +27,7 @@ class _HomeViewState extends State<HomeView> {
           children: [
             // Sidebar
 
-            const SideBar(),
+            const SideBar(currentIndex: 0),
 
             const VerticalDivider(
               width: 20,

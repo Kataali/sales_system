@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_system/views/add_inventory.dart';
 import 'package:sales_system/views/dashboard_view.dart';
 import 'package:sales_system/views/home.dart';
 import 'package:sales_system/views/login.dart';
@@ -14,6 +15,7 @@ class AppRoutes {
       ManageInventoryView.routeName: (context) => const ManageInventoryView(),
       LoginView.routeName: (context) => const LoginView(),
       RevenueView.routeName: (context) => const RevenueView(),
+      AddInventoryView.routeName: (context) => const AddInventoryView()
     };
   }
 }

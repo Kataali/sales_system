@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/views/dashboard_view.dart';
 
 class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+  const SideBar({super.key, required this.currentIndex});
+  final int currentIndex;
 
   @override
   State<SideBar> createState() => _SideBarState();
@@ -22,43 +22,61 @@ class _SideBarState extends State<SideBar> {
     ),
     const NavigationRailDestination(
       padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.home_outlined),
+      icon: Icon(Icons.dashboard_outlined),
       label: Text("Dashboard"),
-      selectedIcon: Icon(Icons.home),
+      selectedIcon: Icon(Icons.dashboard),
     ),
     const NavigationRailDestination(
       padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.home_outlined),
-      label: Text("Report"),
-      selectedIcon: Icon(Icons.home),
+      icon: Icon(Icons.inventory_outlined),
+      label: Text("Manage Products"),
+      selectedIcon: Icon(Icons.inventory),
     ),
     const NavigationRailDestination(
       padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.home_outlined),
+      icon: Icon(Icons.monetization_on_outlined),
+      label: Text("Revenue"),
+      selectedIcon: Icon(Icons.monetization_on),
+    ),
+    const NavigationRailDestination(
+      padding: EdgeInsets.symmetric(vertical: 20),
+      icon: Icon(Icons.settings_outlined),
       label: Text("Settings"),
-      selectedIcon: Icon(Icons.home),
+      selectedIcon: Icon(Icons.settings),
     ),
   ];
 
-  int _selectedIndex = 0;
+  late int _selectedIndex;
 
   void changeDestination(int index) {
     setState(() {
       _selectedIndex = index;
-      switch (_selectedIndex) {
-        case 1:
-          Navigator.of(context).push(
-            MaterialPageRoute(
-              builder: (context) => const DashboardView(),
-            ),
-          );
-      }
     });
+
+    switch (_selectedIndex) {
+      case 0:
+        Navigator.pushNamed(context, "/home");
+      case 1:
+        Navigator.pushNamed(context, '/dashboard');
+      case 2:
+        Navigator.pushNamed(context, '/manage_inventory');
+      case 3:
+        Navigator.pushNamed(context, '/revenue');
+    }
   }
+
+  @override
+  // void initState() {
+  //   setState(() {
+  //     _selectedIndex = widget.currentIndex;
+  //   });
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
+    _selectedIndex = widget.currentIndex;
 
     return NavigationRail(
       destinations: _destinations,
