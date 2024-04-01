@@ -24,8 +24,9 @@ class _AddInventoryViewState extends State<AddInventoryView> {
 
     return Scaffold(
       appBar: AppBar(
-          leading: const Icon(Icons.arrow_back_ios),
-          title: const Text("Add New Product")),
+        leading: const Icon(Icons.arrow_back_ios),
+        title: const Text("Add New Product"),
+      ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Form(

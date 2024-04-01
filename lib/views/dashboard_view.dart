@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 
 import '../widgets/dashboard_card.dart';
 import '../widgets/pie_chart.dart';
+import '../widgets/sidebar.dart';
+import '../widgets/sidepane.dart';
 
 class DashboardView extends StatefulWidget {
   const DashboardView({super.key});
@@ -20,16 +22,20 @@ class _DashboardState extends State<DashboardView> {
       appBar: AppBar(
         title: const Text(
           'Dashboard',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+          ),
         ),
+        centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 30),
+        padding: const EdgeInsets.only(right: 15),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            // sidebar(),
+            const SideBar(),
             Column(
               children: [
                 Padding(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../widgets/appbar.dart';
 import '../widgets/line_chart.dart';
 
 class RevenueView extends StatelessWidget {
@@ -10,6 +11,9 @@ class RevenueView extends StatelessWidget {
     ColorScheme color = Theme.of(context).colorScheme;
 
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Report"),
+      ),
       backgroundColor: color.tertiary,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15.0),
