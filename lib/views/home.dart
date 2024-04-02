@@ -3,6 +3,8 @@ import 'package:sales_system/widgets/product_checkout_card.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
 import 'package:sales_system/widgets/sidepane.dart';
 
+import '../widgets/checkout_pane.dart';
+
 class HomeView extends StatefulWidget {
   static const routeName = '/home';
 
@@ -18,7 +20,16 @@ class _HomeViewState extends State<HomeView> {
     ColorScheme color = Theme.of(context).colorScheme;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+        title: const Text("Products"),
+        centerTitle: true,
+      ),
       backgroundColor: color.tertiary,
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 3.0),
@@ -118,10 +129,74 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  const ProductGridCard(
-                    image: 'assets/Green 1.png',
-                    name: "Sausage",
-                    price: 15.00,
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 15,
+                      crossAxisCount: 4,
+                      children: const [
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/frozen-fish.jpg',
+                          name: "Fish",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/sausage.jpg',
+                          name: "Sausage",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/frozen-fish.jpg',
+                          name: "Fish",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/sausage.jpg',
+                          name: "Sausage",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/frozen-fish.jpg',
+                          name: "Fish",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/sausage.jpg',
+                          name: "Sausage",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
@@ -133,26 +208,7 @@ class _HomeViewState extends State<HomeView> {
             ),
 
             // CheckOut Pane
-            Container(
-              width: 400,
-              color: color.onPrimary,
-              child: const Column(
-                children: [
-                  Text(
-                    "Product Checkout",
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 15,
-                  ),
-                  ProductCheckoutCard(
-                      name: "Schezwan Egg noodles", price: 20, size: 'medium'),
-                ],
-              ),
-            )
+            const CheckoutPane(),
           ],
         ),
       ),
