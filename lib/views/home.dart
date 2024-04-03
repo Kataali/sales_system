@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/widgets/product_checkout_card.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
 import 'package:sales_system/widgets/sidepane.dart';
 
@@ -146,7 +145,7 @@ class _HomeViewState extends State<HomeView> {
                           price: 15.00,
                         ),
                         ProductGridCard(
-                          image: 'assets/sausage.jpg',
+                          image: 'assets/sausages.jpg',
                           name: "Sausage",
                           price: 15.00,
                         ),
@@ -166,7 +165,7 @@ class _HomeViewState extends State<HomeView> {
                           price: 15.00,
                         ),
                         ProductGridCard(
-                          image: 'assets/sausage.jpg',
+                          image: 'assets/sausages.jpg',
                           name: "Sausage",
                           price: 15.00,
                         ),
@@ -186,7 +185,7 @@ class _HomeViewState extends State<HomeView> {
                           price: 15.00,
                         ),
                         ProductGridCard(
-                          image: 'assets/sausage.jpg',
+                          image: 'assets/sausages.jpg',
                           name: "Sausage",
                           price: 15.00,
                         ),

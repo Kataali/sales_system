@@ -2,6 +2,14 @@ import 'package:flutter/material.dart';
 
 ThemeData themeData() {
   return ThemeData(
+    primaryColor: const Color.fromRGBO(52, 197, 89, 1),
+    buttonTheme: ButtonThemeData(
+      buttonColor: const Color.fromRGBO(52, 197, 89, 1),
+      textTheme: ButtonTextTheme.normal,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(15),
+      ),
+    ),
     scaffoldBackgroundColor: Colors.white,
     colorScheme: ThemeData().colorScheme.copyWith(
         primary: const Color.fromRGBO(151, 117, 250, 1),

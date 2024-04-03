@@ -27,23 +27,26 @@ class _ProductCheckoutCardState extends State<ProductCheckoutCard> {
         color: color.tertiary,
       ),
       child: Column(children: [
-        Row(
-          children: [
-            IconButton(
-              icon: const Icon(Icons.keyboard_arrow_right_outlined),
-              onPressed: () {
-                setState(() {
-                  expandCard = !expandCard;
-                });
-              },
-            ),
-            Text(widget.name),
-            Text("GHC${widget.price}"),
-            IconButton(
-              icon: const Icon(Icons.cancel_outlined),
-              onPressed: () {},
-            )
-          ],
+        ListTile(
+          leading: IconButton(
+            icon: const Icon(Icons.keyboard_arrow_right_outlined),
+            onPressed: () {
+              setState(() {
+                expandCard = !expandCard;
+              });
+            },
+          ),
+          title: Text(widget.name),
+          titleTextStyle: const TextStyle(
+            fontWeight: FontWeight.w700,
+          ),
+          subtitle: Text(
+            "GHC ${widget.price} - ${widget.size}",
+          ),
+          trailing: IconButton(
+            icon: const Icon(Icons.cancel_outlined),
+            onPressed: () {},
+          ),
         ),
         expandCard
             ? SizedBox(
@@ -51,6 +54,11 @@ class _ProductCheckoutCardState extends State<ProductCheckoutCard> {
                 child: TextFormField(
                   decoration: const InputDecoration(
                     label: Text("Quantity"),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.all(
+                        Radius.circular(15),
+                      ),
+                    ),
                   ),
                 ),
               )
