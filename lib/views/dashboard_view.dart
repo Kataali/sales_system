@@ -12,12 +12,10 @@ class _dashboardState extends State<dashboard> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Row(
-        children: [
-          sidebar(),
-        ],
+      backgroundColor: Colors.grey[300],
+      body: sidebar(),
 
-      ),
+      
     );
   }
 }

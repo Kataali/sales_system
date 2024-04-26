@@ -70,7 +70,7 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                           fontStyle: FontStyle.italic,
                       color: color.onPrimary),
                       headingRowColor:
-                          MaterialStateProperty.all(color.inversePrimary),
+                          MaterialStateProperty.all(color.primary),
                       columns: List.generate(
                         cols.length,
                         (index) => DataColumn(
