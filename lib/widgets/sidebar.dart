@@ -1,5 +1,3 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:sales_system/widgets/menuItem.dart';
 
@@ -17,8 +15,8 @@ class _sidebarState extends State<sidebar> {
      ColorScheme color = Theme.of(context).colorScheme;
     int isSelected =0;
     return Container(
-      
       width: 100,
+<<<<<<< HEAD
       child: ListView(
         
         children: [
@@ -177,10 +175,120 @@ class _sidebarState extends State<sidebar> {
               ),
             
         ],
+=======
+      child: Container(
+        color: Colors.black,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            ListTile(
+              shape: RoundedRectangleBorder(),
+              style: ListTileStyle.list,
+              hoverColor: Colors.orange,
+              selectedColor: Colors.blue,
+              leading: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.home,
+                  ),
+                  const Text('Dashboard'),
+                ],
+              ),
+              onTap: () {
+                //
+              },
+            ),
+
+            ListTile(
+              shape: RoundedRectangleBorder(),
+              style: ListTileStyle.list,
+              hoverColor: Colors.orange,
+              textColor: Colors.green,
+              leading: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Icon(
+                    Icons.home,
+                  ),
+                  const Text('Orders'),
+                ],
+              ),
+              onTap: () {
+                //
+              },
+            ),
+            //    ListTile(
+            // shape:RoundedRectangleBorder()
+
+            // ,
+            // style: ListTileStyle.list,
+            // hoverColor: Colors.orange,
+            // textColor: Colors.green,
+
+            //   leading: Column(
+            //     children: [
+            //       Icon(
+            //         Icons.home,
+            //       ),
+            //       const Text('Manage Inventory'),
+            //     ],
+            //   ),
+
+            //   onTap: () {
+            //     //
+            //   },
+            // ),
+            //    ListTile(
+            // shape:RoundedRectangleBorder()
+
+            // ,
+            // style: ListTileStyle.list,
+            // hoverColor: Colors.orange,
+            // textColor: Colors.green,
+
+            //   leading: Column(
+            //     children: [
+            //       Icon(
+            //         Icons.home,
+            //       ),
+            //       const Text('Signout'),
+            //     ],
+            //   ),
+
+            //   onTap: () {
+            //     //
+            //   },
+            // ),
+            //    ListTile(
+            // shape:RoundedRectangleBorder()
+
+            // ,
+            // style: ListTileStyle.list,
+            // hoverColor: Colors.orange,
+            // textColor: Colors.green,
+
+            //   leading: Column(
+            //     children: [
+            //       Icon(
+            //         Icons.home,
+            //       ),
+            //       const Text('Settings'),
+            //     ],
+            //   ),
+
+            //   onTap: () {
+            //     //
+            //   },
+            // ),
+          ],
+        ),
+>>>>>>> 694f533745a56e044892ccef9617c3bf549c08b3
       ),
     );
   }
 }
+<<<<<<< HEAD
 
 
 
@@ -256,3 +364,5 @@ class _sidebarState extends State<sidebar> {
 //     );
 //   }
 // }
+=======
+>>>>>>> 694f533745a56e044892ccef9617c3bf549c08b3
