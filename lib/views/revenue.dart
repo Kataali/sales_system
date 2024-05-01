@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import '../widgets/line_chart.dart';
-import '../widgets/sidepane.dart';
+import 'home.dart';
 
 class RevenueView extends StatefulWidget {
   static const routeName = '/revenue';
@@ -35,7 +35,7 @@ class _RevenueViewState extends State<RevenueView> {
         padding: const EdgeInsets.only(right: 15.0),
         child: Row(
           children: [
-            const SideBar(currentIndex: 3),
+            // const SideBar(currentIndex: 3),
             Expanded(
               child: Column(
                 // crossAxisAlignment: CrossAxisAlignment.end,

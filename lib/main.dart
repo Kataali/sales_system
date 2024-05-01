@@ -3,7 +3,6 @@ import 'package:sales_system/constants/app_routes.dart';
 import 'package:sales_system/models/productModel.dart';
 
 import 'package:sales_system/services/db/db_initializer.dart';
-import 'package:sales_system/views/dashboard_view.dart';
 import 'package:sales_system/views/home.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
@@ -26,7 +25,7 @@ class MyApp extends StatelessWidget {
       title: 'Food Sales System.',
       theme: themeData(),
       routes: AppRoutes().getRoutes(),
-      home: const DashboardView(),
+      home: const SideBar(),
     );
   }
 }
