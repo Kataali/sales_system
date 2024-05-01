@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/sidepane.dart';
+import 'home.dart';
 
 class ManageInventoryView extends StatefulWidget {
   static const routeName = '/manage_inventory';
@@ -35,7 +35,6 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
           padding: const EdgeInsets.only(right: 20),
           child: Row(
             children: [
-              const SideBar(currentIndex: 2),
               const VerticalDivider(width: 15, thickness: 0.01),
               Expanded(
                 child: Column(

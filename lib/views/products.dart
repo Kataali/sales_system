@@ -1,156 +1,204 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/models/productModel.dart';
+import 'package:sales_system/widgets/product_grid_card.dart';
+import 'package:sales_system/views/home.dart';
 
-class Products extends StatefulWidget {
-  const Products({super.key});
+import '../widgets/checkout_pane.dart';
+
+class HomeView extends StatefulWidget {
+  static const routeName = '/home';
+
+  const HomeView({super.key});
 
   @override
-  State<Products> createState() => _ProductsState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _ProductsState extends State<Products> {
-
-  List<productsModel> availableproducts = [
-    productsModel(
-        name: "Full Chicken",
-        price: 375,
-        imgUrl:"assets/Chicken.jpg",
-        category: "chichen"    
-    ) ,
-
-       productsModel(
-        name: "Chicken Box",
-        price: 270,
-        imgUrl:"assets/chickenbox.jpg",
-        category: "chichen"    
-    ) ,
-
-         productsModel(
-        name: "Gizzard Box",
-        price: 340,
-        imgUrl:"assets/gizardpack.jpg",
-        category: "Gizard"    
-    ) ,
-
-    //        productsModel(
-    //     name: "Montaire Thigh",
-    //     price: 340,
-    //     imgUrl:"assets/chickenthigh.jpg",
-    //     category: "chichen"    
-    // ) ,
-    //           productsModel(
-    //     name: "Sausage",
-    //     price: 340,
-    //     imgUrl:"assets/sauage.we",
-    //     category: "Sausage"    
-    // ) ,
-
-             productsModel(
-        name: "Gizzard 1 Pack",
-        price: 30,
-        imgUrl:"assets/Chicken.png",
-        category: "chichen"    
-    ) ,
-
-    productsModel(
-        name: "fish",
-        price: 5.99,
-        imgUrl:"assets/fish.jpg",
-        category: "fish"    
-    )  ,
-             productsModel(
-        name: "Gizzard 1 Pack",
-        price: 30,
-        imgUrl:"assets/Chicken.png",
-        category: "chichen"    
-    ) ,
-
-    productsModel(
-        name: "fish",
-        price: 5.99,
-        imgUrl:"assets/fish.jpg",
-        category: "fish"    
-    )  
-    
-    ];
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
-    return
+    ColorScheme color = Theme.of(context).colorScheme;
+    double deviceWidth = MediaQuery.sizeOf(context).width;
+    print(deviceWidth);
 
-    Scaffold(
-      backgroundColor: Colors.grey[400],
-      body: Container(
-        color: Colors.white,
-        child:Row(
-          children:[
-            Expanded(
-              flex:2,
-              child:
-              GridView.builder(
-                itemCount: availableproducts.length,
-                
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-      crossAxisCount: 4,
-      mainAxisSpacing: 5.0,
-      crossAxisSpacing: 5.0,
-      childAspectRatio: 1.0,
-        ), itemBuilder: (BuildContext context, int index) { 
-      return 
-            Container(
-        color: const Color.fromARGB(255, 255, 255, 255),
-        height: 100,
-        // width: 100,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              CircleAvatar(
-                radius: 60,
-                backgroundImage:AssetImage(availableproducts[index].imgUrl) ,
-                             
-              ),
-              SizedBox(height: 5,),
-              Text(availableproducts[index].name),
-              SizedBox(height: 5,),
-              Text("Ghc"+availableproducts[index].price.toString())
-      
-      
-      
-            ],
-          ),
+    return Scaffold(
+      appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
-      );
-        
-         },
-        // children: <Widget>[
-        //   // Add your grid items here
-        //   Container(
-        //     color: const Color.fromARGB(255, 255, 255, 255),
-        //     height: 100,
-        //     width: 100,
-        //     child: CircleAvatar(
-        //       backgroundImage:AssetImage(" ") ,
-      
-        //     ),
-        //   )
-      
-        //   // Add more containers or other widgets as grid items
-        // ],
-      )
-      
-            ),  Expanded(
-              flex:1,
-              child:
-              ListView(
-                children:[
-      
-      
-                ]
+        title: const Text("Products"),
+        centerTitle: true,
+      ),
+      backgroundColor: color.tertiary,
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 3.0),
+        child: Row(
+          // mainAxisSize: MainAxisSize.max,
+          children: [
+            const VerticalDivider(
+              width: 20,
+              thickness: 0.001,
+            ),
+
+            // Products Section
+            Expanded(
+              child: Column(
+                children: [
+                  // const SizedBox(height: 20),
+                  const Divider(
+                    height: 20,
+                    thickness: 0.001,
+                  ),
+                  SizedBox(
+                    height: 50,
+                    // width: 100,
+                    child: DefaultTabController(
+                      length: 5,
+                      child: Scaffold(
+                        appBar: AppBar(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15),
+                          ),
+                          backgroundColor: color.onPrimary,
+                          bottom: const TabBar(
+                            tabs: [
+                              Tab(
+                                icon: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    "Chicken",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                icon: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    "Gizzard",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                icon: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    "Liver",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                icon: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    "Beef",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                              Tab(
+                                icon: SizedBox(
+                                  width: 100,
+                                  child: Text(
+                                    "Fish",
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 15),
+                  Expanded(
+                    child: GridView.count(
+                      crossAxisSpacing: 10,
+                      mainAxisSpacing: 15,
+                      crossAxisCount: deviceWidth < 1150 ? 2 : 4,
+                      childAspectRatio: 3 / 4,
+                      children: const [
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/frozen-fish.jpg',
+                          name: "Fish",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/sausages.jpg',
+                          name: "Sausage",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/frozen-fish.jpg',
+                          name: "Fish",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/sausages.jpg',
+                          name: "Sausage",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/frozen-fish.jpg',
+                          name: "Fish",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/sausages.jpg',
+                          name: "Sausage",
+                          price: 15.00,
+                        ),
+                        ProductGridCard(
+                          image: 'assets/full-chicken.jpg',
+                          name: "Chicken",
+                          price: 15.00,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
-            )
-          ]
-      
-        )
+            ),
+            // const SizedBox(width: 20),
+            const VerticalDivider(
+              width: 20,
+              thickness: 0.001,
+            ),
+
+            // CheckOut Pane
+            const CheckoutPane(),
+          ],
+        ),
       ),
     );
   }

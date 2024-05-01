@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/constants/app_routes.dart';
-import 'package:sales_system/views/dashboard_view.dart';
 import 'package:sales_system/views/home.dart';
 
 import 'constants/app_theme.dart';
@@ -20,7 +19,7 @@ class MyApp extends StatelessWidget {
       title: 'Food Sales System.',
       theme: themeData(),
       routes: AppRoutes().getRoutes(),
-      home: const DashboardView(),
+      home: const SideBar(),
     );
   }
 }

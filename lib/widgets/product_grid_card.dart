@@ -20,7 +20,7 @@ class _ProductGridCardState extends State<ProductGridCard> {
     ColorScheme color = Theme.of(context).colorScheme;
 
     return Container(
-      height: 250,
+      height: 150,
       decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/views/add_inventory.dart';
 import 'package:sales_system/views/dashboard_view.dart';
-import 'package:sales_system/views/home.dart';
+import 'package:sales_system/views/products.dart';
 import 'package:sales_system/views/login.dart';
 import 'package:sales_system/views/manage_inventory_view.dart';
 import 'package:sales_system/views/revenue.dart';
