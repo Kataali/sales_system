@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:sales_system/models/productModel.dart';
+
+import 'package:sales_system/services/db/db_initializer.dart';
 
 class AddInventoryView extends StatefulWidget {
   static const routeName = '/add_inventory';
@@ -20,18 +23,48 @@ class _AddInventoryViewState extends State<AddInventoryView> {
     'Fish',
   ];
 
+  // Define controllers for each TextFormField
+  final TextEditingController _name = TextEditingController();
+  final TextEditingController _quantity = TextEditingController();
+  final TextEditingController _price = TextEditingController();
+  final TextEditingController _controller4 = TextEditingController();
+
+  // Define global form key
+  final _formKey = GlobalKey<FormState>();
+
+  // Validator function to check if a field is empty
+  String? _validateField(String? value) {
+   if (value == null || value.isEmpty) {
+      return 'This field is required';
+    }
+    return null;
+  }
+
+  @override
+  void dispose() {
+    // Clean up the controllers when the widget is disposed
+    _name.dispose();
+    _quantity.dispose();
+    _price.dispose();
+    _controller4.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
 
     return Scaffold(
       appBar: AppBar(
-        leading: const Icon(Icons.arrow_back_ios),
+        leading: IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () {
+          Navigator.of(context).pop();
+        },),
         title: const Text("Add New Product"),
       ),
       body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Form(
+            key: _formKey,
             child: Column(
               children: [
                 const SizedBox(
@@ -41,6 +74,8 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: _name,
+                        validator: _validateField,
                         decoration: const InputDecoration(
                           label: Text("Product Name"),
                           border: OutlineInputBorder(),
@@ -52,6 +87,8 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                     ),
                     Expanded(
                       child: TextFormField(
+                        controller: _quantity,
+                        validator: _validateField,
                         decoration: const InputDecoration(
                           label: Text("Quantity"),
                           border: OutlineInputBorder(),
@@ -67,6 +104,8 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                   children: [
                     Expanded(
                       child: TextFormField(
+                        controller: _price,
+                        validator: _validateField,
                         decoration: const InputDecoration(
                           label: Text("Price"),
                           border: OutlineInputBorder(),
@@ -115,11 +154,34 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () async {
+
+                        List<Map<String, dynamic>> products = await DBInitializer.getProducts();
+                        print(products);
+                      },
                       child: const Text("Cancel"),
                     ),
                     ElevatedButton(
-                        onPressed: () {},
+                        onPressed: () async {
+
+                          
+                           if (_formKey.currentState!.validate()) {
+                    // If the form is valid, handle form submission
+                    String value = _name.text;
+
+                     await DBInitializer.insertProduct(_name.text, double.tryParse(_quantity.text)?? 0.0 , int.tryParse(_price.text) ?? 0 , 'Category', 'Size');
+
+                   
+                  }
+                           // Insert product
+       
+
+        // Get products
+        List<Map<String, dynamic>> products = await DBInitializer.getProducts();
+         // Do something with the retrieved products
+
+        
+                        },
                         child: const Row(
                           children: [
                             Icon(Icons.check_circle_outline_rounded),
@@ -137,3 +199,22 @@ class _AddInventoryViewState extends State<AddInventoryView> {
     );
   }
 }
+// Future<void> _addDummyProducts() async {
+//   // Add dummy products here
+//   await DatabaseHelper.insertProduct(Product(
+//     id: 1,
+//     name: 'Product 1',
+//     price: 10.0,
+//     quantity: 5,
+//     category: 'Category 1',
+//     size: 'Large',
+//   ));
+//   await DatabaseHelper.insertProduct(Product(
+//     id: 2,
+//     name: 'Product 2',
+//     price: 20.0,
+//     quantity: 10,
+//     category: 'Category 2',
+//     size: 'Medium',
+//   ));
+// }

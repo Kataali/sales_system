@@ -1,15 +1,28 @@
-class productsModel {
-  String name;
-  double price;
-  String imgUrl;
+class Product {
+  final int id;
+  final String name;
+  final double price;
+  final int quantity;
+  final String category;
+  final String size;
 
-  String category;
-
-  productsModel({
+  Product({
+    required this.id,
     required this.name,
     required this.price,
-    required this.imgUrl,
-   
-    required this.category
+    required this.quantity,
+    required this.category,
+    required this.size,
   });
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'price': price,
+      'quantity': quantity,
+      'category': category,
+      'size': size,
+    };
+  }
 }
