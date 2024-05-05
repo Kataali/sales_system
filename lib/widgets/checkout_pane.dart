@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sales_system/providers/products_provider.dart';
 
 import 'product_checkout_card.dart';
 
@@ -30,39 +32,33 @@ class _CheckoutPaneState extends State<CheckoutPane> {
             height: 15,
             thickness: 1,
           ),
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(10, 8, 10, 8),
-              child: ListView(
-                children: const [
-                  ProductCheckoutCard(
-                    name: "Sausage",
-                    price: 20,
-                    size: 'medium',
-                  ),
-                  ProductCheckoutCard(
-                    name: "Fish",
-                    price: 35,
-                    size: 'large',
-                  ),
-                  ProductCheckoutCard(
-                    name: "Chicken",
-                    price: 15,
-                    size: 'small',
-                  ),
-                  ProductCheckoutCard(
-                    name: "Fish",
-                    price: 20,
-                    size: 'medium',
-                  ),
-                  ProductCheckoutCard(
-                    name: "Chicken",
-                    price: 35,
-                    size: 'large',
-                  ),
-                ],
-              ),
-            ),
+          Consumer<ProductsProvider>(
+            builder:
+                (BuildContext context, ProductsProvider value, Widget? child) {
+              return Expanded(
+                child: ListView.separated(
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  itemBuilder: (context, index) {
+                    return ProductCheckoutCard(
+                      name: value.checkedoutProducts[index].name,
+                      price: value.checkedoutProducts[index].price,
+                      size: value.checkedoutProducts[index].size,
+                      deleteCheckedOutProduct: () {
+                        value.removeCheckedoutProduct(
+                            value.checkedoutProducts[index]);
+                      },
+                    );
+                  },
+                  itemCount: value.checkedoutProductsLength,
+                  separatorBuilder: (BuildContext context, int index) {
+                    return const Divider(
+                      height: 10,
+                      thickness: 0.001,
+                    );
+                  },
+                ),
+              );
+            },
           ),
           Container(
             padding: const EdgeInsets.only(top: 10),

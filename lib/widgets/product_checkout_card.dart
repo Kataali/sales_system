@@ -2,10 +2,15 @@ import 'package:flutter/material.dart';
 
 class ProductCheckoutCard extends StatefulWidget {
   const ProductCheckoutCard(
-      {super.key, required this.name, required this.price, required this.size});
+      {super.key,
+      required this.name,
+      required this.price,
+      required this.size,
+      required this.deleteCheckedOutProduct});
   final String name;
   final double price;
   final String size;
+  final Function() deleteCheckedOutProduct;
 
   @override
   State<ProductCheckoutCard> createState() => _ProductCheckoutCardState();
@@ -45,7 +50,9 @@ class _ProductCheckoutCardState extends State<ProductCheckoutCard> {
           ),
           trailing: IconButton(
             icon: const Icon(Icons.cancel_outlined),
-            onPressed: () {},
+            onPressed: () {
+              widget.deleteCheckedOutProduct();
+            },
           ),
         ),
         expandCard

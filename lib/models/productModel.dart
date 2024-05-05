@@ -1,15 +1,14 @@
-class productsModel {
-  String name;
-  double price;
-  String imgUrl;
+class ProductsModel {
+  final String name;
+  final double price;
+  final String imgUrl;
+  final String size;
+  final String category;
 
-  String category;
-
-  productsModel({
-    required this.name,
-    required this.price,
-    required this.imgUrl,
-   
-    required this.category
-  });
+  ProductsModel(
+      {required this.size,
+      required this.name,
+      required this.price,
+      required this.imgUrl,
+      required this.category});
 }

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/dashboard_card.dart';
 import '../widgets/pie_chart.dart';
-import 'home.dart';
 
 class DashboardView extends StatefulWidget {
   static const routeName = '/dashboard';
@@ -32,66 +31,62 @@ class _DashboardState extends State<DashboardView> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(15, 0, 15, 0),
+        padding: const EdgeInsets.fromLTRB(15, 90, 15, 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Column(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(top: 90.0),
-                  child: Container(
-                    padding: const EdgeInsets.all(15),
-                    height: 400,
-                    width: 300,
-                    decoration: ShapeDecoration(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(12),
-                          ),
+                Container(
+                  padding: const EdgeInsets.all(15),
+                  height: 400,
+                  width: 300,
+                  decoration: ShapeDecoration(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(12),
                         ),
-                        color: color.onPrimary),
-                    child: Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text(
-                            "Total Income",
-                            style: TextStyle(fontWeight: FontWeight.bold),
-                          ),
-                          const Stack(
-                            children: [
-                              AspectRatio(
-                                aspectRatio: 1,
-                                child: IncomePieChart(),
+                      ),
+                      color: color.onPrimary),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Text(
+                          "Total Income",
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        const Stack(
+                          children: [
+                            AspectRatio(
+                              aspectRatio: 1,
+                              child: IncomePieChart(),
+                            ),
+                            Positioned(
+                              top: 90,
+                              left: 75,
+                              child: Text(
+                                "GHS 21,375",
+                                style: TextStyle(
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.black38),
                               ),
-                              Positioned(
-                                top: 90,
-                                left: 75,
-                                child: Text(
-                                  "GHS 21,375",
-                                  style: TextStyle(
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.bold,
-                                      color: Colors.black38),
-                                ),
-                              ),
-                            ],
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 40.0),
-                            child: ElevatedButton(
-                                onPressed: () {},
-                                child: const Text("Statistics & Revenue")),
-                          )
-                        ]),
-                  ),
+                            ),
+                          ],
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 40.0),
+                          child: ElevatedButton(
+                              onPressed: () {},
+                              child: const Text("Statistics & Revenue")),
+                        )
+                      ]),
                 ),
               ],
             ),
-            if (deviceWidth > 610)
+            if (deviceWidth < 1350)
               Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
                     padding: const EdgeInsets.all(15),
@@ -154,9 +149,8 @@ class _DashboardState extends State<DashboardView> {
               )
             else
               const SizedBox(),
-            if (deviceWidth > 500)
+            if (deviceWidth > 1100)
               Column(
-                mainAxisSize: MainAxisSize.min,
                 children: [
                   DashboardCard(
                     title: 'Revenue',
@@ -175,24 +169,26 @@ class _DashboardState extends State<DashboardView> {
               )
             else
               const SizedBox(),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                DashboardCard(
-                  title: 'Settings',
-                  icon: Icons.settings_outlined,
-                  onPress: () {},
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 80.0),
-                  child: DashboardCard(
-                    title: 'Logout',
-                    icon: Icons.logout_outlined,
+            if (deviceWidth > 1350)
+              Column(
+                children: [
+                  DashboardCard(
+                    title: 'Settings',
+                    icon: Icons.settings_outlined,
                     onPress: () {},
                   ),
-                ),
-              ],
-            )
+                  Padding(
+                    padding: const EdgeInsets.only(top: 80.0),
+                    child: DashboardCard(
+                      title: 'Logout',
+                      icon: Icons.logout_outlined,
+                      onPress: () {},
+                    ),
+                  ),
+                ],
+              )
+            else
+              const SizedBox()
           ],
         ),
       ),
