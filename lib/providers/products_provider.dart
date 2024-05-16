@@ -2,100 +2,116 @@ import 'package:flutter/foundation.dart';
 import 'package:sales_system/models/productModel.dart';
 
 class ProductsProvider extends ChangeNotifier {
-  List<ProductsModel> currentProducts = [
-    ProductsModel(
-      imgUrl: 'assets/sausages.jpg',
-      name: "Sausage",
-      price: 15.00,
-      category: "Sausage",
-      size: "Large",
-    ),
-    ProductsModel(
+  List<Product> currentProducts = [
+    Product(
+        imgUrl: 'assets/sausages.jpg',
+        name: "Sausage",
+        price: 15.00,
+        category: "Sausage",
+        size: "Large",
+        quantity: 15,
+        id: 3456789987654),
+    Product(
         imgUrl: 'assets/frozen-fish.jpg',
         name: "Fish",
         price: 15.00,
         category: "Fish",
-        size: "Small"),
-    ProductsModel(
+        size: "Small",
+        id: 23456789087654,
+        quantity: 15),
+    Product(
+        imgUrl: 'assets/full-chicken.jpg',
+        name: "Chicken",
+        price: 15.00,
+        category: "Chiken",
+        size: "Medium",
+        id: 345678987654,
+        quantity: 15),
+    Product(
+        imgUrl: 'assets/sausages.jpg',
+        name: "Sausage",
+        price: 15.00,
+        category: "Sausage",
+        size: "Large",
+        id: 4567898765,
+        quantity: 15),
+    Product(
+      imgUrl: 'assets/frozen-fish.jpg',
+      name: "Fish",
+      price: 15.00,
+      category: "Fish",
+      size: "Large",
+      id: 4567898765,
+      quantity: 15,
+    ),
+    Product(
       imgUrl: 'assets/full-chicken.jpg',
       name: "Chicken",
       price: 15.00,
       category: "Chiken",
-      size: "Medium",
+      size: "Large",
+      id: 4567898765,
+      quantity: 15,
     ),
-    ProductsModel(
+  ];
+
+  List<Product> checkedoutProducts = [
+    Product(
       imgUrl: 'assets/sausages.jpg',
       name: "Sausage",
       price: 15.00,
       category: "Sausage",
       size: "Large",
+      id: 4567898765,
+      quantity: 15,
     ),
-    ProductsModel(
+    Product(
       imgUrl: 'assets/frozen-fish.jpg',
       name: "Fish",
       price: 15.00,
       category: "Fish",
       size: "Large",
+      id: 4567898765,
+      quantity: 15,
     ),
-    ProductsModel(
-        imgUrl: 'assets/full-chicken.jpg',
-        name: "Chicken",
-        price: 15.00,
-        category: "Chiken",
-        size: "Large"),
+    Product(
+      imgUrl: 'assets/full-chicken.jpg',
+      name: "Chicken",
+      price: 15.00,
+      category: "Chiken",
+      size: "Large",
+      id: 4567898765,
+      quantity: 15,
+    ),
   ];
 
-  List<ProductsModel> checkedoutProducts = [
-    ProductsModel(
-      imgUrl: 'assets/sausages.jpg',
-      name: "Sausage",
-      price: 15.00,
-      category: "Sausage",
-      size: "Large",
-    ),
-    ProductsModel(
-      imgUrl: 'assets/frozen-fish.jpg',
-      name: "Fish",
-      price: 15.00,
-      category: "Fish",
-      size: "Large",
-    ),
-    ProductsModel(
-        imgUrl: 'assets/full-chicken.jpg',
-        name: "Chicken",
-        price: 15.00,
-        category: "Chiken",
-        size: "Large"),
-  ];
-
-  void addProduct(ProductsModel product) {
+  void addProduct(Product product) {
     currentProducts.add(product);
     notifyListeners();
   }
 
-  void removeProduct(ProductsModel product) {
+  void removeProduct(Product product) {
     currentProducts.remove(product);
     notifyListeners();
   }
 
-  void addCheckedoutProduct(ProductsModel product) {
+  void addCheckedoutProduct(Product product) {
     checkedoutProducts.add(product);
     notifyListeners();
   }
 
-  void removeCheckedoutProduct(ProductsModel product) {
+  void removeCheckedoutProduct(Product product) {
     checkedoutProducts.remove(product);
     notifyListeners();
   }
 
   int get checkedoutProductsLength => checkedoutProducts.length;
-  ProductsModel getCheckedoutProductByIndex(int index) =>
-      checkedoutProducts[index];
+  Product getCheckedoutProductByIndex(int index) => checkedoutProducts[index];
   // void editTask(productsModel product, String name) {
   //   product.name = name;
   //   notifyListeners();
   // }
 
   int get productsLength => currentProducts.length;
-  ProductsModel getProductByIndex(int index) => currentProducts[index];
+  Product getProductByIndex(int index) => currentProducts[index];
 }

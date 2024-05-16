@@ -1,4 +1,5 @@
 class Product {
+  final String imgUrl;
   final int id;
   final String name;
   final double price;
@@ -13,6 +14,7 @@ class Product {
     required this.quantity,
     required this.category,
     required this.size,
+    required this.imgUrl,
   });
 
   Map<String, dynamic> toMap() {
