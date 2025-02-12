@@ -40,9 +40,9 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   itemBuilder: (context, index) {
                     return ProductCheckoutCard(
-                      name: value.checkedoutProducts[index].name,
-                      price: value.checkedoutProducts[index].price,
-                      size: value.checkedoutProducts[index].size,
+                      name: value.checkedoutProducts[index].name!,
+                      price: value.checkedoutProducts[index].price!,
+                      size: value.checkedoutProducts[index].size!,
                       deleteCheckedOutProduct: () {
                         value.removeCheckedoutProduct(
                             value.checkedoutProducts[index]);

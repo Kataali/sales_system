@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sales_system/constants/app_routes.dart';
+import 'package:sales_system/core/constants/app_routes.dart';
 // import 'package:sales_system/models/productModel.dart';
 
 import 'package:sales_system/services/db/db_initializer.dart';
@@ -8,7 +8,7 @@ import 'package:sales_system/providers/products_provider.dart';
 import 'package:sales_system/views/home.dart';
 // import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
-import 'constants/app_theme.dart';
+import 'core/constants/app_theme.dart';
 
 void main() async {
   await DBInitializer.initializeDatabase();

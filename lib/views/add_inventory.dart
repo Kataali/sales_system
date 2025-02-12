@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/models/productModel.dart';
+import 'package:sales_system/models/product_model.dart';
 
 import 'package:sales_system/services/db/db_initializer.dart';
 

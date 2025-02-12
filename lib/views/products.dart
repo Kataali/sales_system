@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/providers/products_provider.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
-import 'package:sales_system/views/home.dart';
 
 import '../widgets/checkout_pane.dart';
 
@@ -207,9 +206,9 @@ class _HomeViewState extends State<HomeView> {
                                     value.currentProducts[index]);
                               },
                               child: ProductGridCard(
-                                  image: value.currentProducts[index].imgUrl,
-                                  name: value.currentProducts[index].name,
-                                  price: value.currentProducts[index].price),
+                                  image: value.currentProducts[index].imgUrl!,
+                                  name: value.currentProducts[index].name!,
+                                  price: value.currentProducts[index].price!),
                             );
                           },
                           itemCount: value.productsLength,
