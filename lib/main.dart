@@ -1,17 +1,38 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/core/constants/app_routes.dart';
-// import 'package:sales_system/models/productModel.dart';
+import 'package:sales_system/providers/cart_provider.dart';
 
-import 'package:sales_system/services/db/db_initializer.dart';
+import 'package:sales_system/services/db/db_service.dart';
 import 'package:sales_system/providers/products_provider.dart';
 import 'package:sales_system/views/home.dart';
-// import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 import 'core/constants/app_theme.dart';
 
 void main() async {
-  await DBInitializer.initializeDatabase();
+  WidgetsFlutterBinding.ensureInitialized();
+  // Custom error handling
+  ErrorWidget.builder = (FlutterErrorDetails details) => Material(
+        color: Colors.teal,
+        child: Center(
+          child: Text(
+            details.exception.toString(),
+            style: const TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ),
+      );
+
+  // Impotant: Initialize Database
+  await DBService.initializeDatabase();
+
+  print(await DBService.seeTables());
+  // await DBService.insertProduct('Sausage', 20, 40, 'Sausage', 'large');
+  // Clear Database
+  // await DBService.clearDataBase();
   runApp(const MyApp());
 }
 
@@ -21,8 +42,12 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider<ProductsProvider>(
-      create: (BuildContext context) => ProductsProvider(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<ProductsProvider>(
+            create: (_) => ProductsProvider()),
+        ChangeNotifierProvider<CartProvider>(create: (_) => CartProvider()),
+      ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Food Sales System.',

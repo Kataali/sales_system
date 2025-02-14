@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/providers/products_provider.dart';
 
+import '../providers/cart_provider.dart';
 import 'product_checkout_card.dart';
 
 class CheckoutPane extends StatefulWidget {
-  const CheckoutPane({super.key});
+  const CheckoutPane({super.key, required this.width});
+  final double width;
 
   @override
   State<CheckoutPane> createState() => _CheckoutPaneState();
@@ -15,9 +17,10 @@ class _CheckoutPaneState extends State<CheckoutPane> {
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
+    final cart = Provider.of<CartProvider>(context, listen: false);
 
     return Container(
-      width: 400,
+      width: widget.width,
       color: color.onPrimary,
       child: Column(
         children: [
@@ -32,9 +35,8 @@ class _CheckoutPaneState extends State<CheckoutPane> {
             height: 15,
             thickness: 1,
           ),
-          Consumer<ProductsProvider>(
-            builder:
-                (BuildContext context, ProductsProvider value, Widget? child) {
+          Consumer<CartProvider>(
+            builder: (BuildContext context, CartProvider value, Widget? child) {
               return Expanded(
                 child: ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -69,21 +71,24 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                 color: color.tertiary),
             child: Column(
               children: [
-                const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 10.0),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
+                      const Text(
                         "Total",
                         style: TextStyle(
                             fontWeight: FontWeight.w500, fontSize: 12),
                       ),
-                      Text(
-                        "200",
-                        style: TextStyle(
-                            fontWeight: FontWeight.w700, fontSize: 15),
-                      )
+                      Consumer<CartProvider>(builder:
+                          (context, CartProvider value, Widget? child) {
+                        return Text(
+                          value.total.toString(),
+                          style: const TextStyle(
+                              fontWeight: FontWeight.w700, fontSize: 15),
+                        );
+                      })
                     ],
                   ),
                 ),

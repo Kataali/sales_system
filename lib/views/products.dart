@@ -1,8 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sales_system/core/shared/empty_screen.dart';
+import 'package:sales_system/providers/cart_provider.dart';
 import 'package:sales_system/providers/products_provider.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
+import 'package:uuid/uuid.dart';
 
+import '../services/db/db_service.dart';
 import '../widgets/checkout_pane.dart';
 
 class HomeView extends StatefulWidget {
@@ -14,9 +18,24 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
+enum Filters {
+  all,
+  chicken,
+  gizzard,
+}
+
 class _HomeViewState extends State<HomeView> {
+  
+  @override
+  void initState() {
+    // insert();
+    // getProducts();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    // Provider.of<ProductsProvider>(context, listen: false).getProducts();
     ColorScheme color = Theme.of(context).colorScheme;
     double deviceWidth = MediaQuery.sizeOf(context).width;
     // print(deviceWidth);
@@ -117,102 +136,40 @@ class _HomeViewState extends State<HomeView> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  // Expanded(
-                  //   child: GridView.count(
-                  //     crossAxisSpacing: 10,
-                  //     mainAxisSpacing: 15,
-                  //     crossAxisCount: deviceWidth < 1150 ? 2 : 4,
-                  //     childAspectRatio: 3 / 4,
-                  //     children: const [
-                  //       ProductGridCard(
-                  //         image: 'assets/full-chicken.jpg',
-                  //         name: "Chicken",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/frozen-fish.jpg',
-                  //         name: "Fish",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/sausages.jpg',
-                  //         name: "Sausage",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/full-chicken.jpg',
-                  //         name: "Chicken",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/full-chicken.jpg',
-                  //         name: "Chicken",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/frozen-fish.jpg',
-                  //         name: "Fish",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/sausages.jpg',
-                  //         name: "Sausage",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/full-chicken.jpg',
-                  //         name: "Chicken",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/full-chicken.jpg',
-                  //         name: "Chicken",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/frozen-fish.jpg',
-                  //         name: "Fish",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/sausages.jpg',
-                  //         name: "Sausage",
-                  //         price: 15.00,
-                  //       ),
-                  //       ProductGridCard(
-                  //         image: 'assets/full-chicken.jpg',
-                  //         name: "Chicken",
-                  //         price: 15.00,
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                   Consumer<ProductsProvider>(
                     builder: (BuildContext context, ProductsProvider value,
                         Widget? child) {
                       return Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: deviceWidth < 1150 ? 2 : 4,
-                            childAspectRatio: 3 / 4,
-                            mainAxisSpacing: 15,
-                            crossAxisSpacing: 10,
-                          ),
-                          itemBuilder: (context, index) {
-                            return InkWell(
-                              onTap: () {
-                                value.addCheckedoutProduct(
-                                    value.currentProducts[index]);
-                              },
-                              child: ProductGridCard(
-                                  image: value.currentProducts[index].imgUrl!,
-                                  name: value.currentProducts[index].name!,
-                                  price: value.currentProducts[index].price!),
-                            );
-                          },
-                          itemCount: value.productsLength,
-                        ),
+                        child: value.productsLength == 0
+                            ? const EmptyScreen()
+                            : GridView.builder(
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                  crossAxisCount: deviceWidth < 1150 ? 2 : 3,
+                                  // crossAxisCount: 3,
+                                  // childAspectRatio: 3 / 4,
+                                  childAspectRatio:
+                                      deviceWidth < 1150 ? 3 / 3 : 3 / 4,
+                                  mainAxisSpacing: 15,
+                                  crossAxisSpacing: 10,
+                                ),
+                                itemBuilder: (context, index) {
+                                  return InkWell(
+                                    onTap: () {
+                                      value.addToCheckout(
+                                          value.currentProducts[index]);
+                                    },
+                                    child: ProductGridCard(
+                                        image: value
+                                            .currentProducts[index].imgUrl!,
+                                        name:
+                                            value.currentProducts[index].name!,
+                                        price: value
+                                            .currentProducts[index].price!),
+                                  );
+                                },
+                                itemCount: value.productsLength,
+                              ),
                       );
                     },
                   )
@@ -226,7 +183,7 @@ class _HomeViewState extends State<HomeView> {
             ),
 
             // CheckOut Pane
-            const CheckoutPane(),
+            CheckoutPane(width: deviceWidth / 3),
           ],
         ),
       ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/models/product_model.dart';
 
-import 'package:sales_system/services/db/db_initializer.dart';
+import 'package:sales_system/services/db/db_service.dart';
 
 class AddInventoryView extends StatefulWidget {
   static const routeName = '/add_inventory';
@@ -34,7 +34,7 @@ class _AddInventoryViewState extends State<AddInventoryView> {
 
   // Validator function to check if a field is empty
   String? _validateField(String? value) {
-   if (value == null || value.isEmpty) {
+    if (value == null || value.isEmpty) {
       return 'This field is required';
     }
     return null;
@@ -56,9 +56,12 @@ class _AddInventoryViewState extends State<AddInventoryView> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(icon: const Icon(Icons.arrow_back_ios), onPressed: () {
-          Navigator.of(context).pop();
-        },),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
         title: const Text("Add New Product"),
       ),
       body: Padding(
@@ -155,32 +158,29 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                   children: [
                     ElevatedButton(
                       onPressed: () async {
-
-                        List<Map<String, dynamic>> products = await DBInitializer.getProducts();
+                        List<Map<String, dynamic>> products =
+                            await DBService.getProducts();
                         print(products);
                       },
                       child: const Text("Cancel"),
                     ),
                     ElevatedButton(
                         onPressed: () async {
+                          if (_formKey.currentState!.validate()) {
+                            // If the form is valid, handle form submission
+                            String value = _name.text;
+                            await DBService.insertProduct(
+                                _name.text,
+                                double.tryParse(_quantity.text) ?? 0.0,
+                                int.tryParse(_price.text) ?? 0,
+                                'Category',
+                                'Size');
+                          }
 
-                          
-                           if (_formKey.currentState!.validate()) {
-                    // If the form is valid, handle form submission
-                    String value = _name.text;
-
-                     await DBInitializer.insertProduct(_name.text, double.tryParse(_quantity.text)?? 0.0 , int.tryParse(_price.text) ?? 0 , 'Category', 'Size');
-
-                   
-                  }
-                           // Insert product
-       
-
-        // Get products
-        List<Map<String, dynamic>> products = await DBInitializer.getProducts();
-         // Do something with the retrieved products
-
-        
+                          // Get products
+                          List<Map<String, dynamic>> products =
+                              await DBService.getProducts();
+                          // Do something with the retrieved products
                         },
                         child: const Row(
                           children: [

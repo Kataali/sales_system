@@ -1,69 +1,50 @@
 import 'package:flutter/foundation.dart';
 import 'package:sales_system/models/product/product.dart';
+import 'package:sales_system/providers/cart_provider.dart';
+import 'package:sales_system/services/db/db_service.dart';
 
 import '../core/constants/mock_products.dart';
 // import 'package:sales_system/models/product_model.dart';
 
 class ProductsProvider extends ChangeNotifier {
-  List<Product> currentProducts = mockProducts;
+  // List<Product> currentProducts = mockProducts;
+  List<Product> currentProducts = [];
 
-  List<Product> checkedoutProducts = [
-    const Product(
-      imgUrl: 'assets/sausages.jpg',
-      name: "Sausage",
-      price: 15.00,
-      category: "Sausage",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-    const Product(
-      imgUrl: 'assets/frozen-fish.jpg',
-      name: "Fish",
-      price: 15.00,
-      category: "Fish",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-    const Product(
-      imgUrl: 'assets/full-chicken.jpg',
-      name: "Chicken",
-      price: 15.00,
-      category: "Chiken",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-  ];
+  // fetch products from db
+  void getProducts() async {
+    List<Product> products = [];
+    List jsonProductsList = await DBService.getProducts();
+    for (var productJson in jsonProductsList) {
+      final Product product = Product.fromJson(productJson);
+      currentProducts.add(product);
+    }
+    notifyListeners();
+  }
 
+  // Add a new product
   void addProduct(Product product) {
     currentProducts.add(product);
     notifyListeners();
   }
 
+  // Remove a product
   void removeProduct(Product product) {
     currentProducts.remove(product);
     notifyListeners();
   }
 
-  void addCheckedoutProduct(Product product) {
-    checkedoutProducts.add(product);
-    notifyListeners();
-  }
-
-  void removeCheckedoutProduct(Product product) {
-    checkedoutProducts.remove(product);
-    notifyListeners();
-  }
-
-  int get checkedoutProductsLength => checkedoutProducts.length;
-  Product getCheckedoutProductByIndex(int index) => checkedoutProducts[index];
-  // void editTask(productsModel product, String name) {
-  //   product.name = name;
-  //   notifyListeners();
-  // }
-
+  //**************************************Getters**********************************
+  // get length of currents products
   int get productsLength => currentProducts.length;
+  // Get each product by index
   Product getProductByIndex(int index) => currentProducts[index];
+
+  // List get currentPoducts => getProducts();
+
+  void addToCheckout(Product product) {
+    final cart = CartProvider();
+    cart.addToCart(product);
+    cart.alertListeners();
+    notifyListeners();
+  }
 }
