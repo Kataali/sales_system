@@ -20,19 +20,29 @@ class CartProvider extends ChangeNotifier {
     return 0;
   }
 
+  // Add product to cart
   void addToCart(Product product) {
     checkedoutProducts.add(product);
     getTotal();
     notifyListeners();
   }
 
+  // Remove product from cart
   void removeCheckedoutProduct(Product product) {
     checkedoutProducts.remove(product);
     getTotal();
     notifyListeners();
   }
 
+  // Notify listeners of an action
   void alertListeners() {
+    notifyListeners();
+  }
+
+  // clear cart
+  void clearCart() {
+    checkedoutProducts.clear();
+    getTotal();
     notifyListeners();
   }
 

@@ -16,11 +16,10 @@ class _AddInventoryViewState extends State<AddInventoryView> {
   String? dropDownValue = "Chicken";
 
   var items = [
-    'Chicken',
-    'Gizzard',
-    'Liver',
     'Beef',
+    'Chicken',
     'Fish',
+    'Other'
   ];
 
   // Define controllers for each TextFormField

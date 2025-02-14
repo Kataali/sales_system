@@ -27,25 +27,37 @@ class DBService {
         _database = await databaseFactory.openDatabase(
           path,
           options: OpenDatabaseOptions(
-            version: 1,
-            onCreate: (db, version) async {
-              await db.execute('''
-                  CREATE TABLE IF NOT EXISTS Products(
-                    id INTEGER PRIMARY KEY,
-                    name TEXT,
-                    price REAL,
-                    quantity INTEGER,
-                    category TEXT,
-                    imgUrl TEXT,
-                    size TEXT
-                  )
-                ''');
+            version: 2,
+            // onCreate: (db, version) async {
+            //   await db.execute('''
+            //       CREATE TABLE IF NOT EXISTS Products(
+            //         id INTEGER PRIMARY KEY,
+            //         name TEXT,
+            //         price REAL,
+            //         quantity INTEGER,
+            //         category TEXT,
+            //         imgUrl TEXT,
+            //         size TEXT
+            //       )
+            //     ''');
+            // },
+            onUpgrade: (db, oldVersion, newVersion) async {
+              await db.execute('DROP TABLE Product');
+              await db.execute('''CREATE TABLE IF NOT EXISTS Products(
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                price REAL,
+                quantity INTEGER,
+                category TEXT,
+                imgUrl TEXT,
+                size TEXT
+              )''');
             },
           ),
         );
         _initialized = true;
         print('initialized');
-        print(_database!.database);
+        // print(_database!.database);
       } catch (e) {
         // Handle the exception
         print('Database initialization failed: $e');
@@ -75,6 +87,7 @@ class DBService {
     );
   }
 
+  // Clear all Products from th products DB
   static Future<int> clearDataBase() async {
     try {
       await _database!.delete('Products');
@@ -86,6 +99,7 @@ class DBService {
     return 0;
   }
 
+  // Get all products from the Products table
   static Future<List<Map<String, dynamic>>> getProducts() async {
     if (_database == null) {
       throw Exception('Database not initialized');
@@ -93,6 +107,17 @@ class DBService {
     return await _database!.query('Products');
   }
 
+  // Filter Products by type 
+  static Future<List<Map<String, dynamic>>> getProductsByType(
+      String type) async {
+    if (_database == null) {
+      throw Exception('Database not initialized');
+    }
+    return await _database!
+        .query('Products', where: 'category = ?', whereArgs: [type]);
+  }
+
+  // Storage path of the DB
   static Future<String> seeTables() async {
     return _database!.toString();
   }

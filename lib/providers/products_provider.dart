@@ -1,4 +1,6 @@
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sales_system/models/product/product.dart';
 import 'package:sales_system/providers/cart_provider.dart';
 import 'package:sales_system/services/db/db_service.dart';
@@ -12,13 +14,38 @@ class ProductsProvider extends ChangeNotifier {
 
   // fetch products from db
   void getProducts() async {
-    List<Product> products = [];
-    List jsonProductsList = await DBService.getProducts();
-    for (var productJson in jsonProductsList) {
-      final Product product = Product.fromJson(productJson);
-      currentProducts.add(product);
+    try {
+      currentProducts.clear();
+      List jsonProductsList = await DBService.getProducts();
+      for (var productJson in jsonProductsList) {
+        final Product product = Product.fromJson(productJson);
+        currentProducts.add(product);
+      }
+      notifyListeners();
+    } catch (e) {
+      print(
+        e.toString(),
+      );
     }
-    notifyListeners();
+  }
+
+  // Filter the Products by type
+  void filterProducts(String type) async {
+    try {
+      if (type == "All") {
+        getProducts();
+      } else {
+        currentProducts.clear();
+        List jsonProductsList = await DBService.getProductsByType(type);
+        for (var productJson in jsonProductsList) {
+          final Product product = Product.fromJson(productJson);
+          currentProducts.add(product);
+        }
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
 
   // Add a new product
@@ -41,10 +68,10 @@ class ProductsProvider extends ChangeNotifier {
 
   // List get currentPoducts => getProducts();
 
-  void addToCheckout(Product product) {
-    final cart = CartProvider();
+  void addToCheckout(Product product, BuildContext context) {
+    final cart = Provider.of<CartProvider>(context, listen: false);
     cart.addToCart(product);
-    cart.alertListeners();
+    // cart.alertListeners();
     notifyListeners();
   }
 }

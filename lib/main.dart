@@ -29,8 +29,21 @@ void main() async {
   // Impotant: Initialize Database
   await DBService.initializeDatabase();
 
-  print(await DBService.seeTables());
-  // await DBService.insertProduct('Sausage', 20, 40, 'Sausage', 'large');
+  // print(await DBService.seeTables());
+  // await DBService.insertProduct('Sausage', 20, 40, 'Chicken', 'large',
+  //     imgUrl: 'assets/sausages.jpg');
+  // await DBService.insertProduct('Chicken', 20, 40, 'Chicken', 'large',
+  //     imgUrl: 'assets/full-chicken.jpg');
+  // await DBService.insertProduct('Gizzard', 20, 40, 'Chicken', 'large',
+  //     imgUrl: 'assets/gizard.webp');
+  // await DBService.insertProduct('Liver', 20, 40, 'Beef', 'large',
+  //     imgUrl: 'assets/liver.jpg');
+  // await DBService.insertProduct('Sausage', 20, 40, 'Sausage', 'large',
+  //     imgUrl: 'assets/sausages.jpg');
+  // await DBService.insertProduct('Fish', 20, 40, 'Fish', 'large',
+  //     imgUrl: 'assets/fish.jpg');
+
+  // print(await DBService.getProducts());
   // Clear Database
   // await DBService.clearDataBase();
   runApp(const MyApp());

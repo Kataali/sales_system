@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sales_system/core/shared/empty_screen.dart';
 import 'package:sales_system/providers/products_provider.dart';
 
 import '../providers/cart_provider.dart';
@@ -14,10 +15,16 @@ class CheckoutPane extends StatefulWidget {
 }
 
 class _CheckoutPaneState extends State<CheckoutPane> {
+  void clearCart() {
+    final cart = Provider.of<CartProvider>(context, listen: false);
+    cart.clearCart();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
-    final cart = Provider.of<CartProvider>(context, listen: false);
+    final cart = Provider.of<CartProvider>(context, listen: true);
 
     return Container(
       width: widget.width,
@@ -38,7 +45,9 @@ class _CheckoutPaneState extends State<CheckoutPane> {
           Consumer<CartProvider>(
             builder: (BuildContext context, CartProvider value, Widget? child) {
               return Expanded(
-                child: ListView.separated(
+                child: value.checkedoutProductsLength == 0
+                    ? const EmptyScreen()
+                    : ListView.separated(
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   itemBuilder: (context, index) {
                     return ProductCheckoutCard(
@@ -79,16 +88,13 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                       const Text(
                         "Total",
                         style: TextStyle(
-                            fontWeight: FontWeight.w500, fontSize: 12),
+                            fontWeight: FontWeight.w500, fontSize: 20),
                       ),
-                      Consumer<CartProvider>(builder:
-                          (context, CartProvider value, Widget? child) {
-                        return Text(
-                          value.total.toString(),
-                          style: const TextStyle(
-                              fontWeight: FontWeight.w700, fontSize: 15),
-                        );
-                      })
+                      Text(
+                        cart.total.toString(),
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w700, fontSize: 20),
+                      )
                     ],
                   ),
                 ),
@@ -104,10 +110,13 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5),
                           ),
-                          backgroundColor: color.onBackground,
+                          backgroundColor: color.onSurface,
                           foregroundColor: color.secondary,
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          // Clear cart/Checkout
+                          clearCart();
+                        },
                         child: const Row(
                           children: [
                             Icon(Icons.cancel),
