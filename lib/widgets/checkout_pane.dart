@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/core/shared/empty_screen.dart';
-import 'package:sales_system/providers/products_provider.dart';
 
 import '../providers/cart_provider.dart';
 import 'product_checkout_card.dart';

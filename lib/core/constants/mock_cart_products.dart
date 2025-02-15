@@ -1,5 +1,3 @@
-
-import 'package:sales_system/models/order/order.dart';
 import 'package:sales_system/models/product/product.dart';
 
  List mockCartProducts = [

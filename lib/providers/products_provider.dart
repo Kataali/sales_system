@@ -1,12 +1,8 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/models/product/product.dart';
 import 'package:sales_system/providers/cart_provider.dart';
 import 'package:sales_system/services/db/db_service.dart';
-
-import '../core/constants/mock_products.dart';
-// import 'package:sales_system/models/product_model.dart';
 
 class ProductsProvider extends ChangeNotifier {
   // List<Product> currentProducts = mockProducts;

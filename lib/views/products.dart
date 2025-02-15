@@ -2,12 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/core/constants/app_constants.dart';
 import 'package:sales_system/core/shared/empty_screen.dart';
-import 'package:sales_system/providers/cart_provider.dart';
 import 'package:sales_system/providers/products_provider.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
-import 'package:uuid/uuid.dart';
 
-import '../services/db/db_service.dart';
 import '../widgets/checkout_pane.dart';
 
 class HomeView extends StatefulWidget {
@@ -29,7 +26,7 @@ class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
     // Fetch products from the database
-    Provider.of<ProductsProvider>(context, listen: false).getProducts(); 
+    Provider.of<ProductsProvider>(context, listen: false).getProducts();
     super.initState();
   }
 
@@ -37,7 +34,6 @@ class _HomeViewState extends State<HomeView> {
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
     double deviceWidth = MediaQuery.sizeOf(context).width;
-    // print(deviceWidth);
 
     return Scaffold(
       backgroundColor: color.tertiary,
@@ -86,7 +82,6 @@ class _HomeViewState extends State<HomeView> {
                               .toList(),
                         ),
                       ),
-
                       body: TabBarView(
                         children: productCategories
                             .map(

@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sales_system/models/product_model.dart';
-
 import 'package:sales_system/services/db/db_service.dart';
 
 class AddInventoryView extends StatefulWidget {
@@ -37,6 +35,10 @@ class _AddInventoryViewState extends State<AddInventoryView> {
       return 'This field is required';
     }
     return null;
+  }
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -118,12 +120,6 @@ class _AddInventoryViewState extends State<AddInventoryView> {
                       width: 20,
                     ),
                     Expanded(
-                      // child: TextFormField(
-                      //   decoration: const InputDecoration(
-                      //     label: Text("Category"),
-                      //     border: OutlineInputBorder(),
-                      //   ),
-                      // ),
                       child: DropdownButton(
                         // Initial Value
                         value: dropDownValue,
