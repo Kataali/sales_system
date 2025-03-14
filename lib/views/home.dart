@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/views/dashboard_view.dart';
+import 'package:sales_system/views/not_found_view.dart';
 import 'package:sales_system/views/products.dart';
 import 'package:sales_system/views/manage_inventory_view.dart';
 import 'package:sales_system/views/revenue.dart';
@@ -66,7 +67,7 @@ class _SideBarState extends State<SideBar> {
       case 3:
         return const RevenueView();
       default:
-        return const Text("No Such Destination");
+        return const NotFoundView();
     }
   }
 

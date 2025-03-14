@@ -139,6 +139,7 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                         ),
                         onPressed: () {},
                         child: const Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
                             Icon(Icons.check_circle_outline),
                             Text("Proceed"),

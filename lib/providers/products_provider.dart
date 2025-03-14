@@ -25,7 +25,7 @@ class ProductsProvider extends ChangeNotifier {
     }
   }
 
-  // Filter the Products by type
+  // function to filter the Products by type
   void filterProducts(String type) async {
     try {
       if (type == "All") {
@@ -43,6 +43,9 @@ class ProductsProvider extends ChangeNotifier {
       print(e.toString());
     }
   }
+// Filter products based on product categories
+
+
 
   // Add a new product
   void addProduct(Product product) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:sales_system/core/constants/app_constants.dart';
+import 'package:sales_system/core/constants/string_constants.dart';
 import 'package:sales_system/core/shared/empty_screen.dart';
 import 'package:sales_system/providers/products_provider.dart';
 import 'package:sales_system/widgets/product_grid_card.dart';
@@ -95,8 +95,6 @@ class _HomeViewState extends State<HomeView> {
                                               SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisCount:
                                                 deviceWidth < 1150 ? 2 : 3,
-                                            // crossAxisCount: 3,
-                                            // childAspectRatio: 3 / 4,
                                             childAspectRatio: deviceWidth < 1150
                                                 ? 3 / 3
                                                 : 3 / 4,
@@ -129,48 +127,6 @@ class _HomeViewState extends State<HomeView> {
                               ),
                             )
                             .toList(),
-                        // children: List.generate(
-                        //   categories.length,
-                        //   (int index) => Consumer<ProductsProvider>(
-                        //     builder: (BuildContext context,
-                        //         ProductsProvider value, Widget? child) {
-                        //       return value.productsLength == 0
-                        //           ? const EmptyScreen()
-                        //           : GridView.builder(
-                        //               gridDelegate:
-                        //                   SliverGridDelegateWithFixedCrossAxisCount(
-                        //                 crossAxisCount:
-                        //                     deviceWidth < 1150 ? 2 : 3,
-                        //                 // crossAxisCount: 3,
-                        //                 // childAspectRatio: 3 / 4,
-                        //                 childAspectRatio:
-                        //                     deviceWidth < 1150 ? 3 / 3 : 3 / 4,
-                        //                 mainAxisSpacing: 15,
-                        //                 crossAxisSpacing: 10,
-                        //               ),
-                        //               itemBuilder: (context, index) {
-                        //                 return InkWell(
-                        //                   onTap: () {
-                        //                     value.addToCheckout(
-                        //                         value.currentProducts[index],
-                        //                         context);
-                        //                   },
-                        //                   child: ProductGridCard(
-                        //                       image: value
-                        //                           .currentProducts[index]
-                        //                           .imgUrl!,
-                        //                       name: value
-                        //                           .currentProducts[index].name!,
-                        //                       price: value
-                        //                           .currentProducts[index]
-                        //                           .price!),
-                        //                 );
-                        //               },
-                        //               itemCount: value.productsLength,
-                        //             );
-                        //     },
-                        //   ),
-                        // ),
                       ),
                     ),
                   ),

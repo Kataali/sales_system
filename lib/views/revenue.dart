@@ -35,20 +35,15 @@ class _RevenueViewState extends State<RevenueView> {
         padding: const EdgeInsets.only(right: 15.0),
         child: Row(
           children: [
-            // const SideBar(currentIndex: 3),
             Expanded(
               child: Column(
-                // crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
-                  Padding(
-                    padding: const EdgeInsets.only(bottom: 40.0),
-                    child: SizedBox(
-                      height: 50,
-                      width: 500,
+                  Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.only(bottom: 40.0),
                       child: DefaultTabController(
                         length: 5,
                         child: Scaffold(
-                          // backgroundColor: color.tertiary,
                           appBar: AppBar(
                             backgroundColor: color.tertiary,
                             bottom: const TabBar(
@@ -61,57 +56,52 @@ class _RevenueViewState extends State<RevenueView> {
                               ],
                             ),
                           ),
-                          // body: const TabBarView(
-                          //   children: [
-                          //     Text("Yesterday"),
-                          //     Text("Today"),
-                          //     Text("Week"),
-                          //     Text("Month"),
-                          //     Text("Year")
-                          //   ],
-                          // ),
+                          body: TabBarView(
+                            children: List.generate(
+                              5,
+                              (int index) => Container(
+                                padding: const EdgeInsets.all(15),
+                                height: 345,
+                                // height: 400,
+                                width: 650,
+                                decoration: ShapeDecoration(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(12),
+                                      ),
+                                    ),
+                                    color: color.onPrimary),
+                                child: Column(children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      const Text("Daily Sales"),
+                                      ElevatedButton(
+                                        onPressed: () {},
+                                        style: ButtonStyle(
+                                          shape: MaterialStatePropertyAll<
+                                              RoundedRectangleBorder>(
+                                            RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(5),
+                                            ),
+                                          ),
+                                        ),
+                                        child: const Text(
+                                          "View Report",
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  const Expanded(child: SalesLineChart())
+                                ]),
+                              ),
+                            ),
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(15),
-                    height: 345,
-                    // height: 400,
-                    width: 650,
-                    decoration: ShapeDecoration(
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(12),
-                          ),
-                        ),
-                        color: color.onPrimary),
-                    child: Column(children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Daily Sales"),
-                          ElevatedButton(
-                            onPressed: () {},
-                            style: ButtonStyle(
-                              shape: MaterialStatePropertyAll<
-                                  RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(5),
-                                ),
-                              ),
-                            ),
-                            child: const Text(
-                              "View Report",
-                            ),
-                          ),
-                        ],
-                      ),
-                      // SizedBox(
-                      //   height: 10,
-                      // ),
-                      const Expanded(child: SalesLineChart())
-                    ]),
                   ),
                 ],
               ),

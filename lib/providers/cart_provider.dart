@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
-import 'package:sales_system/core/constants/mock_cart_products.dart';
+import 'package:sales_system/core/constants/mock_constants.dart';
 import 'package:sales_system/models/product/product.dart';
 
 class CartProvider extends ChangeNotifier {
   // Items Added to the cart
-  List checkedoutProducts = mockCartProducts;
+  List checkedoutProducts = MockData.mockCartProducts;
   // Total of the items
   double get total => getTotal();
 
