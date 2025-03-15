@@ -1,117 +1,76 @@
-import 'package:flutter/foundation.dart';
-import 'package:sales_system/models/productModel.dart';
+import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:sales_system/models/product/product.dart';
+import 'package:sales_system/providers/cart_provider.dart';
+import 'package:sales_system/services/db/db_service.dart';
 
 class ProductsProvider extends ChangeNotifier {
-  List<Product> currentProducts = [
-    Product(
-        imgUrl: 'assets/sausages.jpg',
-        name: "Sausage",
-        price: 15.00,
-        category: "Sausage",
-        size: "Large",
-        quantity: 15,
-        id: 3456789987654),
-    Product(
-        imgUrl: 'assets/frozen-fish.jpg',
-        name: "Fish",
-        price: 15.00,
-        category: "Fish",
-        size: "Small",
-        id: 23456789087654,
-        quantity: 15),
-    Product(
-        imgUrl: 'assets/full-chicken.jpg',
-        name: "Chicken",
-        price: 15.00,
-        category: "Chiken",
-        size: "Medium",
-        id: 345678987654,
-        quantity: 15),
-    Product(
-        imgUrl: 'assets/sausages.jpg',
-        name: "Sausage",
-        price: 15.00,
-        category: "Sausage",
-        size: "Large",
-        id: 4567898765,
-        quantity: 15),
-    Product(
-      imgUrl: 'assets/frozen-fish.jpg',
-      name: "Fish",
-      price: 15.00,
-      category: "Fish",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-    Product(
-      imgUrl: 'assets/full-chicken.jpg',
-      name: "Chicken",
-      price: 15.00,
-      category: "Chiken",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-  ];
+  // List<Product> currentProducts = mockProducts;
+  List<Product> currentProducts = [];
 
-  List<Product> checkedoutProducts = [
-    Product(
-      imgUrl: 'assets/sausages.jpg',
-      name: "Sausage",
-      price: 15.00,
-      category: "Sausage",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-    Product(
-      imgUrl: 'assets/frozen-fish.jpg',
-      name: "Fish",
-      price: 15.00,
-      category: "Fish",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-    Product(
-      imgUrl: 'assets/full-chicken.jpg',
-      name: "Chicken",
-      price: 15.00,
-      category: "Chiken",
-      size: "Large",
-      id: 4567898765,
-      quantity: 15,
-    ),
-  ];
+  // fetch products from db
+  void getProducts() async {
+    try {
+      currentProducts.clear();
+      List jsonProductsList = await DBService.getProducts();
+      for (var productJson in jsonProductsList) {
+        final Product product = Product.fromJson(productJson);
+        currentProducts.add(product);
+      }
+      notifyListeners();
+    } catch (e) {
+      print(
+        e.toString(),
+      );
+    }
+  }
 
+  // function to filter the Products by type
+  void filterProducts(String type) async {
+    try {
+      if (type == "All") {
+        getProducts();
+      } else {
+        currentProducts.clear();
+        List jsonProductsList = await DBService.getProductsByType(type);
+        for (var productJson in jsonProductsList) {
+          final Product product = Product.fromJson(productJson);
+          currentProducts.add(product);
+        }
+        notifyListeners();
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+// Filter products based on product categories
+
+
+
+  // Add a new product
   void addProduct(Product product) {
     currentProducts.add(product);
     notifyListeners();
   }
 
+  // Remove a product
   void removeProduct(Product product) {
     currentProducts.remove(product);
     notifyListeners();
   }
 
-  void addCheckedoutProduct(Product product) {
-    checkedoutProducts.add(product);
-    notifyListeners();
-  }
-
-  void removeCheckedoutProduct(Product product) {
-    checkedoutProducts.remove(product);
-    notifyListeners();
-  }
-
-  int get checkedoutProductsLength => checkedoutProducts.length;
-  Product getCheckedoutProductByIndex(int index) => checkedoutProducts[index];
-  // void editTask(productsModel product, String name) {
-  //   product.name = name;
-  //   notifyListeners();
-  // }
-
+  //**************************************Getters**********************************
+  // get length of currents products
   int get productsLength => currentProducts.length;
+  // Get each product by index
   Product getProductByIndex(int index) => currentProducts[index];
+
+  // List get currentPoducts => getProducts();
+
+  void addToCheckout(Product product, BuildContext context) {
+    final cart = Provider.of<CartProvider>(context, listen: false);
+    cart.addToCart(product);
+    // cart.alertListeners();
+    notifyListeners();
+  }
 }

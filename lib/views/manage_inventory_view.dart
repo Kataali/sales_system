@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-
-import 'home.dart';
+import 'package:provider/provider.dart';
+import 'package:sales_system/providers/products_provider.dart';
 
 class ManageInventoryView extends StatefulWidget {
   static const routeName = '/manage_inventory';
@@ -12,10 +12,7 @@ class ManageInventoryView extends StatefulWidget {
 }
 
 class _ManageInventoryViewState extends State<ManageInventoryView> {
-  List<String> cols = ["Name", "Price", "Quantity", "Action"];
-  List<String> name = [" Chicken Thighs", "Wings", "Sausage"];
-  List<String> prices = ['15', '8', '10'];
-  List<String> quantity = ['15', '20', '35'];
+  List<String> cols = ["Name", "Price", "Category", "Quantity", "Action"];
   bool buttonColorState = false;
 
   @override
@@ -32,56 +29,57 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
         centerTitle: true,
       ),
       body: Padding(
-          padding: const EdgeInsets.only(right: 20),
-          child: Row(
-            children: [
-              const VerticalDivider(width: 15, thickness: 0.01),
-              Expanded(
-                child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 25.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          SizedBox(
-                            height: 35,
-                            width: 300,
-                            child: TextFormField(
-                              decoration: InputDecoration(
-                                // enabledBorder: OutlineInputBorder(
-                                //   borderSide: BorderSide(width: 1),
-                                // ),
-                                hintText: "Search for product",
-                                fillColor: color.onPrimary,
-                                filled: true,
-                                prefixIcon: const Icon(Icons.search_outlined),
-                              ),
+        padding: const EdgeInsets.only(right: 20),
+        child: Row(
+          children: [
+            const VerticalDivider(width: 15, thickness: 0.01),
+            Expanded(
+              child: Column(
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 25.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          height: 35,
+                          width: 300,
+                          child: TextFormField(
+                            decoration: InputDecoration(
+                              hintText: "Search for product",
+                              fillColor: color.onPrimary,
+                              filled: true,
+                              prefixIcon: const Icon(Icons.search_outlined),
                             ),
                           ),
-                          ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/add_inventory');
-                              },
-                              child: const Row(
-                                children: [
-                                  Icon(Icons.add_outlined),
-                                  Text("Add new product"),
-                                ],
-                              ))
-                        ],
-                      ),
+                        ),
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.pushNamed(context, '/add_inventory');
+                          },
+                          child: const Row(
+                            children: [
+                              Icon(Icons.add_outlined),
+                              Text("Add new product"),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                    Row(
-                      children: [
-                        Expanded(
-                          child: DataTable(
+                  ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Consumer<ProductsProvider>(builder:
+                            (BuildContext context, ProductsProvider products,
+                                Widget? child) {
+                          return DataTable(
                             headingTextStyle: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontStyle: FontStyle.italic,
                                 color: color.onPrimary),
                             headingRowColor:
-                                MaterialStateProperty.all(color.inversePrimary),
+                                WidgetStateProperty.all(color.inversePrimary),
                             columns: List.generate(
                               cols.length,
                               (index) => DataColumn(
@@ -91,18 +89,23 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                               ),
                             ),
                             rows: List.generate(
-                              name.length,
+                              products.productsLength,
                               (index) {
                                 return DataRow(cells: <DataCell>[
                                   DataCell(
-                                    Text(name[index]),
-                                  ),
-                                  DataCell(
-                                    Text("GHS ${prices[index]}"),
+                                    Text(products.currentProducts[index].name!),
                                   ),
                                   DataCell(
                                     Text(
-                                      quantity[index],
+                                        "GHS ${products.currentProducts[index].price!}"),
+                                  ),
+                                  DataCell(
+                                    Text(products
+                                        .currentProducts[index].category!),
+                                  ),
+                                  DataCell(
+                                    Text(
+                                      "${products.currentProducts[index].quantity!}",
                                     ),
                                   ),
                                   DataCell(
@@ -145,15 +148,17 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                                 ]);
                               },
                             ),
-                          ),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+                          );
+                        }),
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ],
-          )),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }
