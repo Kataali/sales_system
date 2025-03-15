@@ -61,7 +61,7 @@ class _CheckoutPaneState extends State<CheckoutPane> {
             },
           ),
           Container(
-            padding: const EdgeInsets.only(top: 10),
+            padding: const EdgeInsets.only(bottom: 5),
             decoration: ShapeDecoration(
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10),
