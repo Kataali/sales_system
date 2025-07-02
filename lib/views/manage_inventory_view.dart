@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:sales_system/core/constants/string_constants.dart';
 import 'package:sales_system/providers/products_provider.dart';
+import 'package:sales_system/services/db/db_service.dart';
 
 class ManageInventoryView extends StatefulWidget {
   static const routeName = '/manage_inventory';
@@ -12,8 +14,10 @@ class ManageInventoryView extends StatefulWidget {
 }
 
 class _ManageInventoryViewState extends State<ManageInventoryView> {
-  List<String> cols = ["Name", "Price", "Category", "Quantity", "Action"];
-  bool buttonColorState = false;
+  // Delete a product from the database
+  void deleteProduct(int id, BuildContext context) {
+    DBService.deleteProduct(id, context);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,12 +115,25 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                                   DataCell(
                                     Row(children: [
                                       IconButton(
-                                        disabledColor: color.onTertiary,
+                                        onPressed: () {},
+                                        icon: Container(
+                                            decoration: ShapeDecoration(
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(5),
+                                              ),
+                                            ),
+                                            padding: const EdgeInsets.all(3),
+                                            margin:
+                                                const EdgeInsets.only(right: 7),
+                                            child: const Icon(
+                                                Icons.edit_outlined)),
+                                      ),
+                                      IconButton(
                                         onPressed: () {
-                                          setState(() {
-                                            buttonColorState =
-                                                !buttonColorState;
-                                          });
+                                          final productId = products
+                                              .currentProducts[index].id!;
+                                          deleteProduct(productId, context);
                                         },
                                         icon: Container(
                                             decoration: ShapeDecoration(
@@ -124,25 +141,11 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                                                   borderRadius:
                                                       BorderRadius.circular(5),
                                                 ),
-                                                color: buttonColorState
-                                                    ? color.onTertiary
-                                                    : color.onPrimary),
+                                                color: color.onPrimary),
                                             padding: const EdgeInsets.all(3),
-                                            margin:
-                                                const EdgeInsets.only(right: 7),
                                             child: const Icon(
-                                                Icons.edit_outlined)),
+                                                Icons.delete_outlined)),
                                       ),
-                                      Container(
-                                          decoration: ShapeDecoration(
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(5),
-                                              ),
-                                              color: color.onPrimary),
-                                          padding: const EdgeInsets.all(3),
-                                          child: const Icon(
-                                              Icons.delete_outlined)),
                                     ]),
                                   )
                                 ]);

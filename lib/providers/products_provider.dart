@@ -70,7 +70,6 @@ class ProductsProvider extends ChangeNotifier {
   void addToCheckout(Product product, BuildContext context) {
     final cart = Provider.of<CartProvider>(context, listen: false);
     cart.addToCart(product);
-    // cart.alertListeners();
     notifyListeners();
   }
 }

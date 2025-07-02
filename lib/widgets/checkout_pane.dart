@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:sales_system/core/shared/empty_screen.dart';
+import 'package:sales_system/core/utils/dialog.dart';
+import 'package:sales_system/widgets/elevated_button.dart';
 
 import '../providers/cart_provider.dart';
 import 'product_checkout_card.dart';
@@ -18,7 +20,6 @@ class _CheckoutPaneState extends State<CheckoutPane> {
     final cart = Provider.of<CartProvider>(context, listen: false);
     cart.clearCart();
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -47,26 +48,26 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                 child: value.checkedoutProductsLength == 0
                     ? const EmptyScreen()
                     : ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 5),
-                  itemBuilder: (context, index) {
-                    return ProductCheckoutCard(
-                      name: value.checkedoutProducts[index].name!,
-                      price: value.checkedoutProducts[index].price!,
-                      size: value.checkedoutProducts[index].size!,
-                      deleteCheckedOutProduct: () {
-                        value.removeCheckedoutProduct(
-                            value.checkedoutProducts[index]);
-                      },
-                    );
-                  },
-                  itemCount: value.checkedoutProductsLength,
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const Divider(
-                      height: 10,
-                      thickness: 0.001,
-                    );
-                  },
-                ),
+                        padding: const EdgeInsets.symmetric(horizontal: 5),
+                        itemBuilder: (context, index) {
+                          return ProductCheckoutCard(
+                            name: value.checkedoutProducts[index].name!,
+                            price: value.checkedoutProducts[index].price!,
+                            size: value.checkedoutProducts[index].size!,
+                            deleteCheckedOutProduct: () {
+                              value.removeCheckedoutProduct(
+                                  value.checkedoutProducts[index]);
+                            },
+                          );
+                        },
+                        itemCount: value.checkedoutProductsLength,
+                        separatorBuilder: (BuildContext context, int index) {
+                          return const Divider(
+                            height: 10,
+                            thickness: 0.001,
+                          );
+                        },
+                      ),
               );
             },
           ),
@@ -104,23 +105,16 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                 Row(
                   children: [
                     Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
-                          ),
-                          backgroundColor: color.onSurface,
-                          foregroundColor: color.secondary,
-                        ),
+                      child: CustomElevatedButton(
+                        // Background must be red
+                        buttonText: "Cancel",
                         onPressed: () {
                           // Clear cart/Checkout
                           clearCart();
                         },
-                        child: const Row(
-                          children: [
-                            Icon(Icons.cancel),
-                            Text("Cancel"),
-                          ],
+                        leading: const Icon(
+                          Icons.cancel,
+                          size: 30,
                         ),
                       ),
                     ),
@@ -129,24 +123,27 @@ class _CheckoutPaneState extends State<CheckoutPane> {
                       thickness: 0.01,
                     ),
                     Expanded(
-                      child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(5),
+                      child: CustomElevatedButton(
+                          // Background must be green
+                          leading: const Icon(
+                            Icons.check_circle_outline,
+                            size: 30,
                           ),
-                          backgroundColor: color.onSecondary,
-                          foregroundColor: color.secondary,
-                        ),
-                        onPressed: () {},
-                        child: const Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Icon(Icons.check_circle_outline),
-                            Text("Proceed"),
-                          ],
-                        ),
-                      ),
+                          buttonText: "Proceed",
+                          onPressed: () {
+                            CustomDialog.showPopUp(
+                                context,
+                                "Test Alert",
+                                "This is just a test to show the dialog.",
+                                "ok",
+                                'null', () {
+                              Navigator.pop(context);
+                            }, () {
+                              Navigator.pop(context);
+                            });
+                          }),
                     ),
+                    
                   ],
                 ),
               ],

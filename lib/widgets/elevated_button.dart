@@ -4,8 +4,12 @@ class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton(
       {super.key,
       this.leading,
+      this.width = double.infinity,
+      this.height = 50,
       required this.buttonText,
       required this.onPressed});
+  final double width;
+  final double height;
   final Widget? leading;
   final String buttonText;
   final Function() onPressed;
@@ -13,23 +17,28 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5),
+    return SizedBox(
+      width: width,
+      height: height,
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+          backgroundColor: color.onSecondary,
+          foregroundColor: color.secondary,
         ),
-        backgroundColor: color.onSecondary,
-        foregroundColor: color.secondary,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            leading!,
+            Text(buttonText),
+          ],
+        ),
+        onPressed: () {
+          onPressed();
+        },
       ),
-      child: Row(
-        children: [
-          leading!,
-          Text(buttonText),
-        ],
-      ),
-      onPressed: () {
-        onPressed();
-      },
     );
   }
 }

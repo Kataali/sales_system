@@ -1,6 +1,10 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:provider/provider.dart';
+import 'package:sales_system/providers/products_provider.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:uuid/uuid.dart';
 
@@ -56,11 +60,11 @@ class DBService {
           ),
         );
         _initialized = true;
-        print('initialized');
+        log('db initialized');
         // print(_database!.database);
       } catch (e) {
         // Handle the exception
-        print('Database initialization failed: $e');
+        log('Database initialization failed: $e');
       }
     }
   }
@@ -92,9 +96,7 @@ class DBService {
     try {
       await _database!.delete('Products');
     } catch (e) {
-      if (kDebugMode) {
-        print(e.toString());
-      }
+      log(e.toString());
     }
     return 0;
   }
@@ -107,7 +109,7 @@ class DBService {
     return await _database!.query('Products');
   }
 
-  // Filter Products by type 
+  // Filter Products by type
   static Future<List<Map<String, dynamic>>> getProductsByType(
       String type) async {
     if (_database == null) {
@@ -115,6 +117,18 @@ class DBService {
     }
     return await _database!
         .query('Products', where: 'category = ?', whereArgs: [type]);
+  }
+
+  // Delete a product from dthe database
+  static Future<int> deleteProduct(int id, BuildContext context) async {
+    try {
+      await _database!.delete("Products", where: "id = ?", whereArgs: [id]);
+      final products = Provider.of<ProductsProvider>(context, listen: false);
+      products.getProducts();
+    } catch (e) {
+      log(e.toString());
+    }
+    return 0;
   }
 
   // Storage path of the DB

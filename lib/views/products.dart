@@ -16,12 +16,6 @@ class HomeView extends StatefulWidget {
   State<HomeView> createState() => _HomeViewState();
 }
 
-enum Filters {
-  all,
-  chicken,
-  gizzard,
-}
-
 class _HomeViewState extends State<HomeView> {
   @override
   void initState() {
@@ -96,8 +90,8 @@ class _HomeViewState extends State<HomeView> {
                                             crossAxisCount:
                                                 deviceWidth < 1150 ? 2 : 3,
                                             childAspectRatio: deviceWidth < 1150
-                                                ? 3 / 3
-                                                : 3 / 4,
+                                                ? 1 / 1
+                                                : 6 / 7,
                                             mainAxisSpacing: 15,
                                             crossAxisSpacing: 10,
                                           ),

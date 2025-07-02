@@ -80,7 +80,7 @@ class _RevenueViewState extends State<RevenueView> {
                                       ElevatedButton(
                                         onPressed: () {},
                                         style: ButtonStyle(
-                                          shape: MaterialStatePropertyAll<
+                                          shape: WidgetStatePropertyAll<
                                               RoundedRectangleBorder>(
                                             RoundedRectangleBorder(
                                               borderRadius:
