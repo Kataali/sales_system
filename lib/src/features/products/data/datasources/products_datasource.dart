@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sales_system/src/core/constants/api_constants.dart';
-import 'package:sales_system/src/features/authentication/data/datasources/token_storage.dart';
+import 'package:sales_system/src/features/authentication/datasources/datasources/token_storage.dart';
 import '../models/product_model.dart';
 
 class ProductsRemoteDatasource {

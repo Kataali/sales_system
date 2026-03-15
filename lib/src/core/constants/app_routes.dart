@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/src/features/products/presentation/views/add_inventory.dart';
 import 'package:sales_system/views/dashboard_view.dart';
-import 'package:sales_system/src/features/products/presentation/views/products.dart';
-import 'package:sales_system/views/home.dart';
 import 'package:sales_system/views/login.dart';
 import 'package:sales_system/src/features/products/presentation/views/manage_inventory_view.dart';
 import 'package:sales_system/views/revenue.dart';

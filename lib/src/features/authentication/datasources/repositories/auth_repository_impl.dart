@@ -2,8 +2,8 @@ import 'dart:io';
 
 import 'package:fpdart/fpdart.dart';
 import 'package:sales_system/shared/error/failure.dart';
-import 'package:sales_system/src/features/authentication/data/datasources/token_storage.dart';
-import 'package:sales_system/src/features/authentication/data/models/user_model.dart';
+import 'package:sales_system/src/features/authentication/datasources/datasources/token_storage.dart';
+import 'package:sales_system/src/features/authentication/datasources/models/user_model.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/repositories/auth_repository.dart';
 import '../datasources/auth_datasource.dart';

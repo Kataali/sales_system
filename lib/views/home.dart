@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:sales_system/views/dashboard_view.dart';
 import 'package:sales_system/views/not_found_view.dart';
-import 'package:sales_system/views/products.dart';
-import 'package:sales_system/views/manage_inventory_view.dart';
+import 'package:sales_system/src/features/products/presentation/views/products.dart';
+import 'package:sales_system/src/features/products/presentation/views/manage_inventory_view.dart';
 import 'package:sales_system/views/revenue.dart';
 
-class SideBar extends StatefulWidget {
-  const SideBar({super.key});
+class HomeView extends StatefulWidget {
+  const HomeView({super.key});
 
   @override
-  State<SideBar> createState() => _SideBarState();
+  State<HomeView> createState() => _HomeViewState();
 }
 
-class _SideBarState extends State<SideBar> {
+class _HomeViewState extends State<HomeView> {
   int _selectedIndex = 0;
 
   final List<NavigationRailDestination> _destinations = [
@@ -59,7 +59,7 @@ class _SideBarState extends State<SideBar> {
 
     switch (_selectedIndex) {
       case 0:
-        return const HomeView();
+        return const ProductsView();
       case 1:
         return const DashboardView();
       case 2:

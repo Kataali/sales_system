@@ -28,6 +28,7 @@ final productsControllerProvider =
     if (user != null) {
       controller.fetchProducts();
     } else {
+      // Check this
       controller.state = const AsyncValue.data([]);
     }
   });

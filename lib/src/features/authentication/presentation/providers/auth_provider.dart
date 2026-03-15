@@ -1,8 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
-import 'package:sales_system/src/features/authentication/data/datasources/auth_datasource.dart';
-import 'package:sales_system/src/features/authentication/data/datasources/token_storage.dart';
-import 'package:sales_system/src/features/authentication/data/repositories/auth_repository_impl.dart';
+import 'package:sales_system/src/features/authentication/datasources/datasources/auth_datasource.dart';
+import 'package:sales_system/src/features/authentication/datasources/datasources/token_storage.dart';
+import 'package:sales_system/src/features/authentication/datasources/repositories/auth_repository_impl.dart';
 import 'package:sales_system/src/features/authentication/domain/entities/user.dart';
 import 'package:sales_system/src/features/authentication/presentation/controllers/auth_controller.dart';
 
