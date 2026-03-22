@@ -49,6 +49,7 @@ class ProductsView extends ConsumerWidget {
           ),
           if (deviceWidth > 900) const CheckoutPane(),
         ],
+        
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () =>

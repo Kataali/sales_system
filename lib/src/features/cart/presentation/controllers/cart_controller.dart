@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_riverpod/legacy.dart';
+import 'package:sales_system/src/features/cart/data/models/checkout_result_model.dart';
 import 'package:sales_system/src/features/cart/domain/entities/cart.dart';
 import 'package:sales_system/src/features/cart/domain/repositories/cart_repository.dart';
 import 'package:sales_system/src/features/products/domain/entities/product.dart';
@@ -58,17 +59,20 @@ class CartController extends StateNotifier<AsyncValue<List<CartItem>>> {
     state = AsyncValue.data(items);
   }
 
-  Future<void> checkout() async {
+  Future<CheckoutResult> checkout() async {
     final List<CartItem> items = state.value ?? []; // Get items BEFORE setting to loading
 
     try {
       state = const AsyncValue.loading();
 
-      await repository.checkout(items);
+      final result = await repository.checkout(items);
 
       state = const AsyncValue.data([]); // Clear cart on success
+
+      return result;
     } catch (e, s) {
       state = AsyncValue.error(e, s);
+      rethrow;
     }
   }
 }

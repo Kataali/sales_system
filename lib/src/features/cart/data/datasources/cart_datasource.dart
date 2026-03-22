@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:sales_system/src/core/constants/api_constants.dart';
 import 'package:sales_system/src/features/authentication/datasources/datasources/token_storage.dart';
+import 'package:sales_system/src/features/cart/data/models/checkout_result_model.dart';
 
 class CartRemoteDatasource {
   final String baseUrl = ApiConstants.baseUrl;
@@ -9,7 +10,7 @@ class CartRemoteDatasource {
 
   CartRemoteDatasource(this.storage);
 
-  Future<void> checkout({
+  Future<CheckoutResult> checkout({
     required String token,
     required List<Map<String, dynamic>> items,
   }) async {
@@ -26,8 +27,12 @@ class CartRemoteDatasource {
       }),
     );
 
-    if (response.statusCode != 201) {
-      throw Exception("Checkout failed: ${response.body}");
+    final body = jsonDecode(response.body);
+
+    if (response.statusCode == 201 && body['success'] == true) {
+      return CheckoutResult.fromJson(body);
+    } else {
+      throw Exception(body['error']['message'] ?? "Checkout failed");
     }
   }
 }

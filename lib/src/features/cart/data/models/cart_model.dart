@@ -1,6 +1,3 @@
-
-
-
 import 'package:sales_system/src/features/products/data/models/product_variant_model.dart';
 import 'package:sales_system/src/features/products/domain/entities/product.dart';
 
