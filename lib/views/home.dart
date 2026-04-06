@@ -1,101 +1,89 @@
-import 'package:flutter/material.dart';
-import 'package:sales_system/views/dashboard_view.dart';
-import 'package:sales_system/views/not_found_view.dart';
-import 'package:sales_system/src/features/products/presentation/views/products.dart';
-import 'package:sales_system/src/features/products/presentation/views/manage_inventory_view.dart';
-import 'package:sales_system/views/revenue.dart';
+import 'package:fluent_ui/fluent_ui.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:iconly/iconly.dart';
+import 'package:sales_system/src/features/authentication/presentation/providers/auth_provider.dart';
 
-class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+class HomeView extends ConsumerWidget {
+  final Widget child;
 
-  @override
-  State<HomeView> createState() => _HomeViewState();
-}
-
-class _HomeViewState extends State<HomeView> {
-  int _selectedIndex = 0;
-
-  final List<NavigationRailDestination> _destinations = [
-    const NavigationRailDestination(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(
-        Icons.home_outlined,
-      ),
-      label: Text("Home"),
-      selectedIcon: Icon(
-        Icons.home,
-      ),
-    ),
-    const NavigationRailDestination(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.dashboard_outlined),
-      label: Text("Dashboard"),
-      selectedIcon: Icon(Icons.dashboard),
-    ),
-    const NavigationRailDestination(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.inventory_outlined),
-      label: Text("Manage Products"),
-      selectedIcon: Icon(Icons.inventory),
-    ),
-    const NavigationRailDestination(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.monetization_on_outlined),
-      label: Text("Revenue"),
-      selectedIcon: Icon(Icons.monetization_on),
-    ),
-    const NavigationRailDestination(
-      padding: EdgeInsets.symmetric(vertical: 20),
-      icon: Icon(Icons.settings_outlined),
-      label: Text("Settings"),
-      selectedIcon: Icon(Icons.settings),
-    ),
-  ];
-
-  Widget changeDestination(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-
-    switch (_selectedIndex) {
-      case 0:
-        return const ProductsView();
-      case 1:
-        return const DashboardView();
-      case 2:
-        return const ManageInventoryView();
-      case 3:
-        return const RevenueView();
-      default:
-        return const NotFoundView();
-    }
-  }
+  const HomeView({super.key, required this.child});
 
   @override
-  Widget build(BuildContext context) {
-    ColorScheme color = Theme.of(context).colorScheme;
-    return Row(
-      children: [
-        NavigationRail(
-          destinations: _destinations,
-          selectedIndex: _selectedIndex,
-          indicatorColor: color.onPrimary,
-          onDestinationSelected: changeDestination,
-          useIndicator: false,
-          labelType: NavigationRailLabelType.all,
-          elevation: 5,
-          selectedIconTheme: IconThemeData(color: color.onSecondary, size: 40),
-          selectedLabelTextStyle: TextStyle(color: color.onSecondary),
-          minWidth: 100,
-          indicatorShape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(8),
-            side: BorderSide(width: 2, color: color.onSecondary),
-          ),
+  Widget build(BuildContext context, WidgetRef ref) {
+    final location = GoRouterState.of(context).matchedLocation;
+    final userRole = ref.watch(authControllerProvider.select((s) => s.value?.role)) ?? 'employee';
+    final isAdmin = userRole == 'admin';
+
+    // Define all possible items
+    final List<_NavItem> allItems = [
+      _NavItem(
+        path: '/',
+        icon: IconlyLight.home,
+        title: 'Home',
+      ),
+      if (isAdmin) ...[
+        _NavItem(
+          path: '/dashboard',
+          icon: IconlyLight.category,
+          title: 'Dashboard',
         ),
-        Expanded(
-          child: changeDestination(_selectedIndex),
+        _NavItem(
+          path: '/manage-inventory',
+          icon: IconlyLight.bag_2,
+          title: 'Manage Products',
         ),
       ],
+      _NavItem(
+        path: '/revenue',
+        icon: IconlyLight.wallet,
+        title: 'Revenue',
+      ),
+      _NavItem(
+        path: '/settings',
+        icon: IconlyLight.setting,
+        title: 'Settings',
+      ),
+    ];
+
+    // Find current index based on location
+    int selectedIndex = 0;
+    for (int i = 0; i < allItems.length; i++) {
+      if (location == allItems[i].path || 
+          (allItems[i].path != '/' && location.startsWith(allItems[i].path))) {
+        selectedIndex = i;
+        break;
+      }
+    }
+
+    return NavigationView(
+      appBar: const NavigationAppBar(
+        automaticallyImplyLeading: false,
+      ),
+      pane: NavigationPane(
+        selected: selectedIndex,
+        onChanged: (index) {
+          context.go(allItems[index].path);
+        },
+        displayMode: PaneDisplayMode.open,
+        items: <PaneItem>[
+          for (final item in allItems)
+            PaneItem(
+              icon: Icon(item.icon, size: 24),
+              title: Text(item.title, style: const TextStyle(fontSize: 16)),
+              body: child,
+            ),
+        ],
+        footerItems: <PaneItem>[],
+      ),
     );
   }
+}
+
+class _NavItem {
+  final String path;
+  final IconData icon;
+  final String title;
+
+  _NavItem({required this.path, required this.icon, required this.title});
 }

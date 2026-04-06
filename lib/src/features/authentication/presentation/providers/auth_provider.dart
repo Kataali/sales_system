@@ -5,10 +5,15 @@ import 'package:sales_system/src/features/authentication/datasources/datasources
 import 'package:sales_system/src/features/authentication/datasources/repositories/auth_repository_impl.dart';
 import 'package:sales_system/src/features/authentication/domain/entities/user.dart';
 import 'package:sales_system/src/features/authentication/presentation/controllers/auth_controller.dart';
+import 'package:sales_system/src/features/authentication/presentation/controllers/employee_management_controller.dart';
 
-final authDatasourceProvider = Provider((ref) => AuthRemoteDatasource());
 final authSecureStorageProvider =
     Provider<AuthSecureStorage>((ref) => AuthSecureStorage());
+
+final authDatasourceProvider = Provider((ref) {
+  final storage = ref.read(authSecureStorageProvider);
+  return AuthRemoteDatasource(storage);
+});
 
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(
       ref.read(authDatasourceProvider),
@@ -20,4 +25,10 @@ final authControllerProvider =
   final repository = ref.watch(authRepositoryProvider);
 
   return AuthController(repository);
+});
+
+final employeeManagementProvider =
+    StateNotifierProvider<EmployeeManagementController, AsyncValue<List<User>>>((ref) {
+  final repository = ref.watch(authRepositoryProvider);
+  return EmployeeManagementController(repository);
 });

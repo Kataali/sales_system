@@ -1,12 +1,10 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 
 /// Dialog types for different purposes
 enum DialogType { confirmation, warning, info, success, error }
 
-/// A reusable, flexible dialog widget.
-/// - Returns `true` if confirmed (for confirmation type), null otherwise.
-/// - Automatically adapts icon and colors based on type.
+/// A reusable, flexible dialog widget using Fluent UI.
 Future<bool?> showCustomDialog({
   required BuildContext context,
   required String title,
@@ -15,99 +13,54 @@ Future<bool?> showCustomDialog({
   String cancelText = 'Cancel',
   String confirmText = 'Confirm',
 }) {
-  // Determine icon and color based on type
-  Icon dialogIcon;
-  Color confirmColor;
-  Color cancelColor = ExtraColors.crimson;
+  IconData dialogIcon;
+  Color iconColor;
 
   switch (type) {
     case DialogType.confirmation:
-      dialogIcon =
-          const Icon(Icons.help_outline, color: ExtraColors.emerald, size: 40);
-      confirmColor = ExtraColors.emerald.withValues(alpha: 0.7);
+      dialogIcon = FluentIcons.help;
+      iconColor = ExtraColors.emerald;
       break;
     case DialogType.warning:
-      dialogIcon =
-          const Icon(Icons.warning, color: ExtraColors.crimson, size: 40);
-      confirmColor = ExtraColors.crimson;
+      dialogIcon = FluentIcons.warning;
+      iconColor = ExtraColors.crimson;
       break;
     case DialogType.info:
-      dialogIcon = const Icon(Icons.info_outline, color: Colors.blue, size: 40);
-      confirmColor = Colors.blue.withOpacity(0.7);
+      dialogIcon = FluentIcons.info;
+      iconColor = Colors.blue;
       break;
     case DialogType.success:
-      dialogIcon =
-          const Icon(Icons.check_circle, color: ExtraColors.emerald, size: 40);
-      confirmColor = ExtraColors.emerald.withValues(alpha: 0.7);
+      dialogIcon = FluentIcons.completed;
+      iconColor = ExtraColors.emerald;
       break;
     case DialogType.error:
-      dialogIcon =
-          const Icon(Icons.error, color: ExtraColors.crimson, size: 40);
-      confirmColor = ExtraColors.crimson;
+      dialogIcon = FluentIcons.error;
+      iconColor = ExtraColors.crimson;
       break;
   }
 
-  // Determine whether to show cancel button
-  final showCancel =
-      type == DialogType.confirmation || type == DialogType.warning;
+  final showCancel = type == DialogType.confirmation || type == DialogType.warning;
 
   return showDialog<bool>(
     context: context,
-    barrierDismissible:
-        type != DialogType.confirmation && type != DialogType.warning,
-    builder: (context) => AlertDialog(
-      icon: dialogIcon,
-      title: Text(
-        title,
-        style: Theme.of(context)
-            .textTheme
-            .headlineMedium
-            ?.copyWith(color: ExtraColors.black),
+    builder: (context) => ContentDialog(
+      title: Row(
+        children: [
+          Icon(dialogIcon, color: iconColor, size: 24),
+          const SizedBox(width: 12),
+          Text(title),
+        ],
       ),
-      content: Text(
-        content,
-        style: Theme.of(context)
-            .textTheme
-            .bodyMedium
-            ?.copyWith(color: ExtraColors.black),
-      ),
-      actionsAlignment: MainAxisAlignment.spaceAround,
+      content: Text(content),
       actions: [
         if (showCancel)
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            style: TextButton.styleFrom(
-              elevation: 5,
-              backgroundColor: cancelColor,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(30),
-              ),
-            ),
-            child: Text(
-              cancelText,
-              style: Theme.of(context)
-                  .textTheme
-                  .bodyMedium
-                  ?.copyWith(color: ExtraColors.black),
-            ),
+          Button(
+            child: Text(cancelText),
+            onPressed: () => Navigator.pop(context, false),
           ),
-        TextButton(
-          onPressed: () => Navigator.of(context)
-              .pop(type == DialogType.confirmation ? true : null),
-          style: TextButton.styleFrom(
-            elevation: 5,
-            backgroundColor: confirmColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(30),
-            ),
-          ),
-          child: Text(
-            confirmText,
-            style: Theme.of(context)
-                .textTheme
-                .bodyMedium
-                ?.copyWith(color: ExtraColors.black),
-          ),
+        FilledButton(
+          child: Text(confirmText),
+          onPressed: () => Navigator.pop(context, true),
         ),
       ],
     ),

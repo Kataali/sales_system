@@ -12,7 +12,7 @@ class CheckoutPane extends ConsumerWidget {
   const CheckoutPane({super.key});
 
   void _checkOut(context, ref) async {
-    // Step 1: Ask for user confirmation before checkout
+    // Ask for user confirmation before checkout
     final confirmed = await showCustomDialog(
       context: context,
       title: 'Confirm Sale',
@@ -39,10 +39,8 @@ class CheckoutPane extends ConsumerWidget {
         confirmText: 'OK',
       );
 
-      // log sale IDs for internal use
-      print('Sold IDs: ${result.saleIds}');
     } catch (e) {
-      // SHandle errors with an error dialog
+      // Handle errors with an error dialog
       await showCustomDialog(
         context: context,
         title: 'Sale Failed',

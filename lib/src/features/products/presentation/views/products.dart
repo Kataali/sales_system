@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:iconly/iconly.dart';
 import 'package:sales_system/shared/presentation/ui/loading_overlay.dart';
-import 'package:sales_system/src/core/shared/empty_screen.dart';
+import 'package:sales_system/shared/presentation/ui/empty_screen.dart';
+import 'dart:math';
 import 'package:sales_system/src/features/products/presentation/providers/products_provider.dart';
 import 'package:sales_system/src/features/products/presentation/views/product_grid_card.dart';
 import 'checkout_pane.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class ProductsView extends ConsumerWidget {
   const ProductsView({super.key});
@@ -40,14 +42,14 @@ class ProductsView extends ConsumerWidget {
                           onTap: () {
                             // Add to checkout logic here if needed
                           },
-                        );
+                        ).animate().fade(duration: 400.ms, delay: (40 * min(index, 20)).ms).scaleXY(begin: 0.9, duration: 400.ms, curve: Curves.easeOutBack);
                       },
                     ),
                   ),
             loading: () => const Center(child: LoadingOverlay()),
             error: (err, _) => Center(child: Text(err.toString())),
           ),
-          if (deviceWidth > 900) const CheckoutPane(),
+          if (deviceWidth > 900) const CheckoutPane().animate().slideX(begin: 1, duration: 500.ms, curve: Curves.easeOutCubic),
         ],
         
       ),

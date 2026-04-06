@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:fluent_ui/fluent_ui.dart';
 
 class AppTextField extends StatelessWidget {
   final TextEditingController? controller;
@@ -12,8 +12,14 @@ class AppTextField extends StatelessWidget {
   final int minLines;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
+  final void Function(String)? onFieldSubmitted;
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final bool autofocus;
   final EdgeInsetsGeometry contentPadding;
   final bool enabled;
+  final bool readOnly;
+
 
   const AppTextField({
     super.key,
@@ -28,14 +34,19 @@ class AppTextField extends StatelessWidget {
     this.minLines = 1,
     this.validator,
     this.onChanged,
+    this.onFieldSubmitted,
+    this.focusNode,
+    this.textInputAction,
+    this.autofocus = false,
     this.contentPadding = const EdgeInsets.symmetric(horizontal: 12, vertical: 14),
     this.enabled = true,
+    this.readOnly = false,
   });
+
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      
+    Widget box = TextFormBox(
       controller: controller,
       keyboardType: keyboardType,
       obscureText: obscureText,
@@ -43,16 +54,26 @@ class AppTextField extends StatelessWidget {
       minLines: obscureText ? 1 : minLines,
       validator: validator,
       onChanged: onChanged,
+      onFieldSubmitted: onFieldSubmitted,
+      focusNode: focusNode,
+      textInputAction: textInputAction,
+      autofocus: autofocus,
       enabled: enabled,
-      decoration: InputDecoration(
-        labelText: label,
-        hintText: hint,
-        prefixIcon: prefixIcon,
-        suffixIcon: suffixIcon,
-        contentPadding: contentPadding,
-        border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
-      ),
+      readOnly: readOnly,
+      placeholder: hint ?? label,
+
+      prefix: prefixIcon != null ? Padding(padding: const EdgeInsetsDirectional.only(start: 8.0, end: 4.0), child: prefixIcon) : null,
+      suffix: suffixIcon != null ? Padding(padding: const EdgeInsetsDirectional.only(end: 8.0, start: 4.0), child: suffixIcon) : null,
+      padding: contentPadding,
     );
+    
+    if (label != null) {
+      return InfoLabel(
+        label: label!,
+        child: box,
+      );
+    }
+    return box;
   }
 }
 

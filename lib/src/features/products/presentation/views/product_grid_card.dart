@@ -31,20 +31,32 @@ class ProductGridCard extends StatelessWidget {
           Expanded(
             child: Container(
               color: ExtraColors.lightGrey,
-              child: CachedNetworkImage(
-                imageUrl: product.imageUrl,
-                fit: BoxFit.cover,
-                width: double.infinity,
-                placeholder: (context, url) => const Center(
-                  child: CircularProgressIndicator(strokeWidth: 2),
-                ),
-                errorWidget: (context, url, error) => Center(
-                  child: Image.asset(
-                    'assets/fallback.png',
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
+              child: product.imageUrl.startsWith('assets/')
+                  ? Image.asset(
+                      product.imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      errorBuilder: (context, error, stackTrace) => Center(
+                        child: Image.asset(
+                          'assets/fallback.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    )
+                  : CachedNetworkImage(
+                      imageUrl: product.imageUrl,
+                      fit: BoxFit.cover,
+                      width: double.infinity,
+                      placeholder: (context, url) => const Center(
+                        child: CircularProgressIndicator(strokeWidth: 2),
+                      ),
+                      errorWidget: (context, url, error) => Center(
+                        child: Image.asset(
+                          'assets/fallback.png',
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
             ),
           ),
           Padding(
