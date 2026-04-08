@@ -38,7 +38,11 @@ class DashboardView extends ConsumerWidget {
       body: state.when(
         data: (DashboardEntity data) => CustomScrollView(
           slivers: [
-            const _DashAppBar(),
+            _DashAppBar(
+              onRefresh: () {
+                ref.read(dashboardControllerProvider.notifier).refresh();
+              },
+            ),
             SliverPadding(
               padding: const EdgeInsets.fromLTRB(20, 8, 20, 40),
               sliver: SliverList(
@@ -77,7 +81,9 @@ class DashboardView extends ConsumerWidget {
 // ─────────────────────────────────────────────────────────────────────────────
 
 class _DashAppBar extends StatelessWidget {
-  const _DashAppBar();
+  final VoidCallback onRefresh;
+
+  const _DashAppBar({required this.onRefresh});
 
   @override
   Widget build(BuildContext context) {
@@ -116,6 +122,11 @@ class _DashAppBar extends StatelessWidget {
         ],
       ),
       actions: [
+        IconButton(
+          tooltip: 'Refresh dashboard',
+          icon: const Icon(Icons.refresh_rounded, color: _textSecondary),
+          onPressed: onRefresh,
+        ),
         IconButton(
           icon: const Icon(Icons.notifications_outlined, color: _textSecondary),
           onPressed: () {},

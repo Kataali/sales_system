@@ -1,14 +1,20 @@
 import 'package:flutter/material.dart';
-class ManageInventoryView extends StatefulWidget {
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:sales_system/src/features/products/presentation/providers/products_provider.dart';
+import 'package:sales_system/src/features/products/presentation/views/add_inventory.dart';
+
+class ManageInventoryView extends ConsumerStatefulWidget {
   static const routeName = '/manage_inventory';
 
   const ManageInventoryView({super.key});
 
   @override
-  State<ManageInventoryView> createState() => _ManageInventoryViewState();
+  ConsumerState<ManageInventoryView> createState() =>
+      _ManageInventoryViewState();
 }
 
-class _ManageInventoryViewState extends State<ManageInventoryView> {
+class _ManageInventoryViewState extends ConsumerState<ManageInventoryView> {
   // Delete a product from the database
   @override
   Widget build(BuildContext context) {
@@ -22,6 +28,15 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            tooltip: 'Refresh products',
+            onPressed: () {
+              ref.read(productsControllerProvider.notifier).fetchProducts();
+            },
+            icon: const Icon(Icons.refresh_rounded),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.only(right: 20),
@@ -50,7 +65,7 @@ class _ManageInventoryViewState extends State<ManageInventoryView> {
                         ),
                         ElevatedButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/add_inventory');
+                            context.push(AddInventoryView.routeName);
                           },
                           child: const Row(
                             children: [

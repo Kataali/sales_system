@@ -49,15 +49,32 @@ class _RevenueReportViewState extends ConsumerState<RevenueReportView> {
 
     return ScaffoldPage(
       header: PageHeader(
-        title: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        title: Row(
           children: [
-            const Text('Revenue'),
-            Text(
-              'Sales performance report',
-              style: FluentTheme.of(context).typography.caption?.copyWith(
-                    color: ExtraColors.darkGrey,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text('Revenue'),
+                  Text(
+                    'Sales performance report',
+                    style: FluentTheme.of(context).typography.caption?.copyWith(
+                          color: ExtraColors.darkGrey,
+                        ),
                   ),
+                ],
+              ),
+            ),
+            Tooltip(
+              message: 'Refresh report',
+              child: IconButton(
+                icon: const Icon(FluentIcons.refresh),
+                onPressed: () {
+                  ref
+                      .read(reportsControllerProvider(_currentParams).notifier)
+                      .fetchReport(_currentParams);
+                },
+              ),
             ),
           ],
         ),

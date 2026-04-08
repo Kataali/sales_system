@@ -7,4 +7,5 @@ class ImageAssets {
   static const String sausage = 'assets/sausages.jpg';
   static const String liver = 'assets/liver.jpg';
   static const String nothing = 'assets/viewed.png';
+  static const String fallback = 'assets/fallback.png';
 }

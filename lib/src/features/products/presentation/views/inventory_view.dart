@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 import 'package:sales_system/shared/presentation/ui/loading_overlay.dart';
 import 'package:sales_system/src/features/products/domain/entities/product.dart';
 import 'package:sales_system/src/features/products/presentation/providers/products_provider.dart';
+import 'package:sales_system/src/features/products/presentation/views/add_inventory.dart';
 import 'package:sales_system/src/features/products/presentation/widgets/empty_state.dart';
 import 'package:sales_system/src/features/products/presentation/widgets/error_state.dart';
 import 'dart:math';
@@ -132,7 +134,7 @@ class _InventoryViewState extends ConsumerState<InventoryView> {
                   // Add product button
                   GestureDetector(
                     onTap: () {
-                      // TODO: navigate to add product screen
+                      context.push(AddInventoryView.routeName);
                     },
                     child: Container(
                       width: 42,
