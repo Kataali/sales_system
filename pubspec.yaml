@@ -59,6 +59,9 @@ dependencies:
   flutter_secure_storage: ^10.0.0
   cached_network_image: ^3.4.1
   flutter_animate: ^4.5.2
+  pdf: ^3.11.3
+  printing: ^5.14.2
+  file_selector: ^1.0.3
 
 dev_dependencies:
   flutter_test:
