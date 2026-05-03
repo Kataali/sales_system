@@ -2,5 +2,10 @@ import 'package:sales_system/src/features/cart/data/models/checkout_result_model
 import 'package:sales_system/src/features/cart/domain/entities/cart.dart';
 
 abstract class CartRepository {
-  Future<CheckoutResult> checkout(List<CartItem> items);
+  Future<CheckoutResult> checkout(
+    List<CartItem> items, {
+    bool isCollected = true,
+    String? customerName,
+    String? customerPhone,
+  });
 }

@@ -28,8 +28,9 @@ class ProductsRemoteDatasource {
     );
 
     if (response.statusCode == 200) {
-      final List<dynamic> jsonList = jsonDecode(response.body);
-      print(jsonList);
+      final Map<String, dynamic> jsonResponse = jsonDecode(response.body);
+      final List<dynamic> jsonList =
+          jsonResponse['products']; // Adjust the key based on the API response
       return jsonList.map((json) => ProductModel.fromJson(json)).toList();
     } else {
       throw Exception("Failed to fetch products: ${response.body}");

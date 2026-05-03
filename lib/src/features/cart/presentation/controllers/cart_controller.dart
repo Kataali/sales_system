@@ -59,19 +59,29 @@ class CartController extends StateNotifier<AsyncValue<List<CartItem>>> {
     state = AsyncValue.data(items);
   }
 
-  Future<CheckoutResult> checkout() async {
-    final List<CartItem> items = state.value ?? []; // Get items BEFORE setting to loading
+  Future<CheckoutResult> checkout({
+    bool isCollected = true,
+    String? customerName,
+    String? customerPhone,
+  }) async {
+    final List<CartItem> items =
+        state.value ?? []; // Get items BEFORE setting to loading
 
     try {
       state = const AsyncValue.loading();
 
-      final result = await repository.checkout(items);
+      final result = await repository.checkout(
+        items,
+        isCollected: isCollected,
+        customerName: customerName,
+        customerPhone: customerPhone,
+      );
 
       state = const AsyncValue.data([]); // Clear cart on success
 
       return result;
-    } catch (e, s) {
-      state = AsyncValue.error(e, s);
+    } catch (e) {
+      state = AsyncValue.data(items);
       rethrow;
     }
   }

@@ -11,8 +11,27 @@ class CartRepositoryImpl implements CartRepository {
   CartRepositoryImpl(this.datasource, this.storage);
 
   @override
-  Future<CheckoutResult> checkout(List<CartItem> items) async {
+  Future<CheckoutResult> checkout(
+    List<CartItem> items, {
+    bool isCollected = true,
+    String? customerName,
+    String? customerPhone,
+  }) async {
     final token = await storage.getAccessToken();
+    if (token == null || token.isEmpty) {
+      throw Exception('Please log in again before making a sale.');
+    }
+
+    final trimmedCustomerName = customerName?.trim();
+    final trimmedCustomerPhone = customerPhone?.trim();
+
+    if (!isCollected &&
+        ((trimmedCustomerName == null || trimmedCustomerName.isEmpty) ||
+            (trimmedCustomerPhone == null || trimmedCustomerPhone.isEmpty))) {
+      throw Exception(
+        'Customer name and phone are required for pending pick-ups.',
+      );
+    }
 
     final payload = items.map((item) {
       return {
@@ -24,8 +43,13 @@ class CartRepositoryImpl implements CartRepository {
     }).toList();
 
     return await datasource.checkout(
-      token: token!,
+      token: token,
       items: payload,
+      isCollected: isCollected,
+      customerName:
+          trimmedCustomerName?.isEmpty == true ? null : trimmedCustomerName,
+      customerPhone:
+          trimmedCustomerPhone?.isEmpty == true ? null : trimmedCustomerPhone,
     );
   }
 }
