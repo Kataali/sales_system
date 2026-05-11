@@ -19,9 +19,9 @@ class MiniStatCard extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: ExtraColors.darkBlue,
+        color: ExtraColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: ExtraColors.link),
+        border: Border.all(color: ExtraColors.linkLight),
       ),
       child: Row(
         children: [
@@ -41,7 +41,7 @@ class MiniStatCard extends StatelessWidget {
               children: [
                 Text(value,
                     style: const TextStyle(
-                      color: ExtraColors.white,
+                      color: ExtraColors.black,
                       fontSize: 17,
                       fontWeight: FontWeight.w700,
                       letterSpacing: -0.5,

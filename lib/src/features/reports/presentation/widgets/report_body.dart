@@ -31,7 +31,7 @@ class ReportBody extends StatelessWidget {
           Row(
             children: [
               const Text(
-                'REVENUE TREND',
+                'CASHFLOW TREND',
                 style: TextStyle(
                   color: ExtraColors.darkGrey,
                   fontSize: 11,
@@ -42,8 +42,8 @@ class ReportBody extends StatelessWidget {
               const Spacer(),
               Text(
                 report.period.isHourly ? 'Hourly' : 'Daily',
-                style: const TextStyle(
-                    color: ExtraColors.darkGrey, fontSize: 11),
+                style:
+                    const TextStyle(color: ExtraColors.darkGrey, fontSize: 11),
               ),
             ],
           ),

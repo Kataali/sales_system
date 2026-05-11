@@ -11,26 +11,52 @@ class StatGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currencyFormat =
-        NumberFormat.currency(symbol: '\$', decimalDigits: 2);
+        NumberFormat.currency(symbol: 'GHS ', decimalDigits: 2);
 
-    return Row(
+    return Column(
       children: [
-        Expanded(
-          child: MiniStatCard(
-            icon: FluentIcons.receipt_forward,
-            label: 'Transactions',
-            value: '${report.totalTransactions}',
-            accent: ExtraColors.turquoise,
-          ),
+        Row(
+          children: [
+            Expanded(
+              child: MiniStatCard(
+                icon: FluentIcons.receipt_forward,
+                label: 'Transactions',
+                value: '${report.totalTransactions}',
+                accent: ExtraColors.turquoise,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: MiniStatCard(
+                icon: FluentIcons.shopping_cart,
+                label: 'Avg Order',
+                value: currencyFormat.format(report.averageOrderValue),
+                accent: ExtraColors.yellow,
+              ),
+            ),
+          ],
         ),
-        const SizedBox(width: 12),
-        Expanded(
-          child: MiniStatCard(
-            icon: FluentIcons.shopping_cart,
-            label: 'Avg Order',
-            value: currencyFormat.format(report.averageOrderValue),
-            accent: ExtraColors.yellow,
-          ),
+        const SizedBox(height: 12),
+        Row(
+          children: [
+            Expanded(
+              child: MiniStatCard(
+                icon: FluentIcons.savings,
+                label: 'Period Deposits',
+                value: currencyFormat.format(report.totalDeposits),
+                accent: ExtraColors.emerald,
+              ),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: MiniStatCard(
+                icon: FluentIcons.money,
+                label: 'Period Cashflow',
+                value: currencyFormat.format(report.totalCashflow),
+                accent: ExtraColors.plum,
+              ),
+            ),
+          ],
         ),
       ],
     );

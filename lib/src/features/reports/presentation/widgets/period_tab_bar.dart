@@ -31,12 +31,12 @@ class PeriodTabBar extends StatelessWidget {
                   decoration: BoxDecoration(
                     color: selected
                         ? ExtraColors.plum
-                        : ExtraColors.darkBlue,
+                        : ExtraColors.white,
                     borderRadius: BorderRadius.circular(20),
                     border: Border.all(
                       color: selected
                           ? ExtraColors.plum
-                          : ExtraColors.link,
+                          : ExtraColors.linkLight,
                     ),
                     boxShadow: selected
                         ? [

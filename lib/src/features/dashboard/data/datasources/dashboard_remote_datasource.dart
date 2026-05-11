@@ -21,6 +21,7 @@ class DashboardRemoteDataSource {
       );
 
       if (response.statusCode == 200) {
+        print('Dashboard API Response: ${response.body}'); // Debug log
         return jsonDecode(response.body);
       } 
       else if (response.statusCode == 401 || response.statusCode == 403) {

@@ -27,36 +27,52 @@ extension ReportPeriodX on ReportPeriod {
 class RevenueDataPoint {
   final String label;
   final double revenue;
+  final double deposits;
+  final double cashflow;
   final int transactions;
 
   const RevenueDataPoint({
     required this.label,
     required this.revenue,
+    required this.deposits,
+    required this.cashflow,
     required this.transactions,
   });
 
   factory RevenueDataPoint.fromJson(Map<String, dynamic> json) {
+    final revenue = double.tryParse(json['revenue']?.toString() ?? '') ?? 0.0;
+    final deposits = double.tryParse(json['deposits']?.toString() ?? '') ?? 0.0;
+    final cashflow =
+        double.tryParse(json['cashflow']?.toString() ?? '') ?? (revenue + deposits);
+    
     return RevenueDataPoint(
-      label: json['label'] as String,
-      revenue: (json['revenue'] as num).toDouble(),
-      transactions: (json['transactions'] as num).toInt(),
+      label: json['label']?.toString() ?? '',
+      revenue: revenue,
+      deposits: deposits,
+      cashflow: cashflow,
+      transactions: int.tryParse(json['transactions']?.toString() ?? '') ?? 0,
     );
   }
 }
 
 class BestPeriod {
   final String label;
-  final double revenue;
+  final double cashflow;
 
   const BestPeriod({
     required this.label,
-    required this.revenue,
+    required this.cashflow,
   });
 
   factory BestPeriod.fromJson(Map<String, dynamic> json) {
+    final revenue = double.tryParse(json['revenue']?.toString() ?? '') ?? 0.0;
+    final deposits = double.tryParse(json['deposits']?.toString() ?? '') ?? 0.0;
+    final cashflow =
+        double.tryParse(json['cashflow']?.toString() ?? '') ?? (revenue + deposits);
+
     return BestPeriod(
-      label: json['label'] as String,
-      revenue: (json['revenue'] as num).toDouble(),
+      label: json['label']?.toString() ?? '',
+      cashflow: cashflow,
     );
   }
 }
@@ -65,10 +81,14 @@ class RevenueReportEntity {
   final ReportPeriod period;
   final String date;
   final double totalRevenue;
+  final double totalDeposits;
+  final double totalCashflow;
   final int totalTransactions;
   final double averageOrderValue;
   final BestPeriod bestPeriod;
   final double comparisonRevenue;
+  final double comparisonDeposits;
+  final double comparisonCashflow;
   final String comparisonLabel;
   final List<RevenueDataPoint> dataPoints;
 
@@ -76,10 +96,14 @@ class RevenueReportEntity {
     required this.period,
     required this.date,
     required this.totalRevenue,
+    required this.totalDeposits,
+    required this.totalCashflow,
     required this.totalTransactions,
     required this.averageOrderValue,
     required this.bestPeriod,
     required this.comparisonRevenue,
+    required this.comparisonDeposits,
+    required this.comparisonCashflow,
     required this.comparisonLabel,
     required this.dataPoints,
   });

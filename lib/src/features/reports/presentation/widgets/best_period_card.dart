@@ -10,16 +10,16 @@ class BestPeriodCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currencyFormat =
-        NumberFormat.currency(symbol: '\$', decimalDigits: 2);
+        NumberFormat.currency(symbol: 'GHS ', decimalDigits: 2);
     final periodWord =
         report.period.isHourly ? 'hour' : 'day';
 
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: ExtraColors.darkBlue,
+        color: ExtraColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: ExtraColors.link),
+        border: Border.all(color: ExtraColors.linkLight),
       ),
       child: Row(
         children: [
@@ -47,7 +47,7 @@ class BestPeriodCard extends StatelessWidget {
                 Text(
                   report.bestPeriod.label,
                   style: const TextStyle(
-                    color: ExtraColors.white,
+                    color: ExtraColors.black,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                     letterSpacing: -0.5,
@@ -60,7 +60,7 @@ class BestPeriodCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.end,
             children: [
               Text(
-                currencyFormat.format(report.bestPeriod.revenue),
+                currencyFormat.format(report.bestPeriod.cashflow),
                 style: const TextStyle(
                   color: ExtraColors.yellow,
                   fontSize: 17,
@@ -68,7 +68,7 @@ class BestPeriodCard extends StatelessWidget {
                 ),
               ),
               const Text(
-                'peak revenue',
+                'peak cashflow',
                 style: TextStyle(
                     color: ExtraColors.darkGrey, fontSize: 11),
               ),

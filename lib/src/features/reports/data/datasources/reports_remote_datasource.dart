@@ -37,7 +37,31 @@ class ReportsRemoteDataSource {
     if (response.statusCode == 200) {
       final body = jsonDecode(response.body);
       if (body is Map<String, dynamic>) {
-        return body;
+        final success = body['success'];
+        if (success == false) {
+          throw Exception(body['message']?.toString() ?? 'Failed to load report.');
+        }
+
+        final report = body['report'];
+        if (report is Map || body.containsKey('date')) {
+          return body;
+        }
+
+        throw Exception('Invalid report payload: missing "report".');
+      }
+      if (body is Map) {
+        final normalized = body.map(
+          (key, value) => MapEntry(key.toString(), value),
+        );
+        final success = normalized['success'];
+        if (success == false) {
+          throw Exception(
+              normalized['message']?.toString() ?? 'Failed to load report.');
+        }
+        if (normalized['report'] is Map || normalized.containsKey('date')) {
+          return normalized;
+        }
+        throw Exception('Invalid report payload: missing "report".');
       }
       throw Exception('Invalid report response.');
     }

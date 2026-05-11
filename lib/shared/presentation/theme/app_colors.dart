@@ -50,4 +50,12 @@ class ExtraColors {
   static const Color teal = Color(0xFF008080);
   static const Color turquoise = Color(0xFF40E0D0);
   static const Color customGreen = Color(0xFF34A853);
+
+  // Additions for consistency
+  static const Color lightBackground = Color(0xFFF5F5F5);
+  static const Color darkBackground = Color(0xFF121212);
+  static const Color lightCard = Color(0xFFFFFFFF);
+  static const Color darkCard = Color(0xFF1E1E1E);
+  static const Color lightAccent = Color(0xFF0078D7);
+  static const Color darkAccent = Color(0xFF58A6FF);
 }

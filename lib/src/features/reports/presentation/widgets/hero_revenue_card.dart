@@ -5,6 +5,7 @@ import 'package:sales_system/src/features/reports/domain/entities/report_entity.
 
 class HeroRevenueCard extends StatelessWidget {
   final RevenueReportEntity report;
+
   const HeroRevenueCard({super.key, required this.report});
 
   @override
@@ -13,7 +14,7 @@ class HeroRevenueCard extends StatelessWidget {
     final isUp = report.isUp;
     final deltaColor = isUp ? ExtraColors.emerald : ExtraColors.crimson;
     final currencyFormat =
-        NumberFormat.currency(symbol: '\$', decimalDigits: 2);
+        NumberFormat.currency(symbol: 'GHS ', decimalDigits: 2);
 
     return Container(
       width: double.infinity,
@@ -39,18 +40,31 @@ class HeroRevenueCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            report.period.label.toUpperCase(),
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 11,
-              fontWeight: FontWeight.w600,
-              letterSpacing: 1.4,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                report.period.label.toUpperCase(),
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
+                  fontWeight: FontWeight.w600,
+                  letterSpacing: 1.4,
+                ),
+              ),
+              Text(
+                'TOTAL CASHFLOW',
+                style: TextStyle(
+                  color: Colors.white.withValues(alpha: 0.7),
+                  fontSize: 10,
+                  fontWeight: FontWeight.w700,
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 8),
           Text(
-            currencyFormat.format(report.totalRevenue),
+            currencyFormat.format(report.totalCashflow),
             style: const TextStyle(
               color: ExtraColors.white,
               fontSize: 38,
@@ -59,14 +73,28 @@ class HeroRevenueCard extends StatelessWidget {
               height: 1,
             ),
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 12),
+          Row(
+            children: [
+              _HeroBreakdownItem(
+                label: 'Sales Revenue',
+                value: currencyFormat.format(report.totalRevenue),
+              ),
+              const SizedBox(width: 24),
+              _HeroBreakdownItem(
+                label: 'New Deposits',
+                value: currencyFormat.format(report.totalDeposits),
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
           // Delta badge
           if (delta != null)
             Row(
               children: [
                 Container(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 8, vertical: 4),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                   decoration: BoxDecoration(
                     color: deltaColor.withValues(alpha: 0.18),
                     borderRadius: BorderRadius.circular(8),
@@ -96,9 +124,8 @@ class HeroRevenueCard extends StatelessWidget {
                 const SizedBox(width: 8),
                 Text(
                   'vs ${report.comparisonLabel} '
-                  '(${currencyFormat.format(report.comparisonRevenue)})',
-                  style: const TextStyle(
-                      color: Colors.white, fontSize: 11),
+                  '(${currencyFormat.format(report.comparisonCashflow)})',
+                  style: const TextStyle(color: Colors.white, fontSize: 11),
                 ),
               ],
             )
@@ -109,6 +136,37 @@ class HeroRevenueCard extends StatelessWidget {
             ),
         ],
       ),
+    );
+  }
+}
+
+class _HeroBreakdownItem extends StatelessWidget {
+  final String label;
+  final String value;
+
+  const _HeroBreakdownItem({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: Colors.white.withValues(alpha: 0.7),
+            fontSize: 10,
+          ),
+        ),
+        Text(
+          value,
+          style: const TextStyle(
+            color: Colors.white,
+            fontSize: 14,
+            fontWeight: FontWeight.w600,
+          ),
+        ),
+      ],
     );
   }
 }

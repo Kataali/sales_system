@@ -21,9 +21,9 @@ class RevenueLineChartState extends State<RevenueLineChart> {
       return Container(
         height: 220,
         decoration: BoxDecoration(
-          color: ExtraColors.darkBlue,
+          color: ExtraColors.white,
           borderRadius: BorderRadius.circular(20),
-          border: Border.all(color: ExtraColors.link),
+          border: Border.all(color: ExtraColors.linkLight),
         ),
         child: const Center(
           child: Text('No data for this period',
@@ -33,13 +33,13 @@ class RevenueLineChartState extends State<RevenueLineChart> {
     }
 
     final maxY =
-        points.map((p) => p.revenue).fold<double>(0, (a, b) => a > b ? a : b);
+        points.map((p) => p.cashflow).fold<double>(0, (a, b) => a > b ? a : b);
 
     // Build spots — skip zero-revenue points for a cleaner line,
     // but always include first and last to anchor the chart.
     final spots = <FlSpot>[];
     for (int i = 0; i < points.length; i++) {
-      spots.add(FlSpot(i.toDouble(), points[i].revenue));
+      spots.add(FlSpot(i.toDouble(), points[i].cashflow));
     }
 
     // Determine label decimation — show fewer labels when many points
@@ -54,9 +54,9 @@ class RevenueLineChartState extends State<RevenueLineChart> {
     return Container(
       padding: const EdgeInsets.fromLTRB(8, 24, 16, 12),
       decoration: BoxDecoration(
-        color: ExtraColors.darkBlue,
+        color: ExtraColors.white,
         borderRadius: BorderRadius.circular(20),
-        border: Border.all(color: ExtraColors.link),
+        border: Border.all(color: ExtraColors.linkLight),
       ),
       child: SizedBox(
         height: 220,
@@ -83,13 +83,29 @@ class RevenueLineChartState extends State<RevenueLineChart> {
                     final i = spot.spotIndex;
                     final p = points[i];
                     return LineTooltipItem(
-                      '\$${p.revenue.toStringAsFixed(2)}\n',
+                      'Sales: GHS ${p.revenue.toStringAsFixed(2)}\n',
                       const TextStyle(
                         color: ExtraColors.white,
                         fontSize: 13,
                         fontWeight: FontWeight.w700,
                       ),
                       children: [
+                        TextSpan(
+                          text:
+                              'Deposits: GHS ${p.deposits.toStringAsFixed(2)}\n',
+                          style: const TextStyle(
+                            color: ExtraColors.darkGrey,
+                            fontSize: 12,
+                          ),
+                        ),
+                        TextSpan(
+                          text: 'Total: GHS ${p.cashflow.toStringAsFixed(2)}\n',
+                          style: const TextStyle(
+                            color: ExtraColors.yellow,
+                            fontSize: 13,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                         TextSpan(
                           text:
                               '${p.label}  ·  ${p.transactions} sale${p.transactions != 1 ? 's' : ''}',
@@ -131,8 +147,8 @@ class RevenueLineChartState extends State<RevenueLineChart> {
                   getTitlesWidget: (value, meta) {
                     if (value == 0) return const SizedBox.shrink();
                     final label = value >= 1000
-                        ? '\$${(value / 1000).toStringAsFixed(1)}k'
-                        : '\$${value.toInt()}';
+                        ? 'GHS ${(value / 1000).toStringAsFixed(1)}k'
+                        : 'GHS ${value.toInt()}';
                     return Padding(
                       padding: const EdgeInsets.only(right: 6),
                       child: Text(label,
