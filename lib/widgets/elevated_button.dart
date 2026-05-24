@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   const CustomElevatedButton(
@@ -17,6 +18,13 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     ColorScheme color = Theme.of(context).colorScheme;
+    Color backgroundColor = Theme.of(context).brightness == Brightness.light
+        ? ExtraColors.white
+        : ExtraColors.darkGrey;
+    Color foregroundColor = Theme.of(context).brightness == Brightness.light
+        ? ExtraColors.blue
+        : ExtraColors.skyBlue;
+
     return SizedBox(
       width: width,
       height: height,
@@ -25,8 +33,8 @@ class CustomElevatedButton extends StatelessWidget {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(5),
           ),
-          backgroundColor: color.onSecondary,
-          foregroundColor: color.secondary,
+          backgroundColor: backgroundColor,
+          foregroundColor: foregroundColor,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,

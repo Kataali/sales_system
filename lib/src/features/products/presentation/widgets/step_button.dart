@@ -20,12 +20,12 @@ class StepButton extends StatelessWidget {
         width: 34,
         height: 34,
         decoration: BoxDecoration(
-          color: enabled ? ExtraColors.link : ExtraColors.darkBlue,
+          color: enabled ? ExtraColors.link : ExtraColors.lightGrey,
           borderRadius: BorderRadius.circular(10),
           border: Border.all(
               color: enabled
                   ? ExtraColors.link
-                  : ExtraColors.link.withValues(alpha: 0.4)),
+                  : ExtraColors.linkLight),
         ),
         child: Icon(icon,
             color: enabled

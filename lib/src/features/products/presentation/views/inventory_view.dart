@@ -96,7 +96,7 @@ class _InventoryViewState extends ConsumerState<InventoryView> {
     final state = ref.watch(productsControllerProvider);
 
     return Scaffold(
-      backgroundColor: ExtraColors.blue,
+      backgroundColor: ExtraColors.skyBlue,
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -167,16 +167,16 @@ class _InventoryViewState extends ConsumerState<InventoryView> {
             // ── Search bar ───────────────────────────────────────────────────
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: ExtraColors.darkBlue,
-                  borderRadius: BorderRadius.circular(14),
-                  border: Border.all(color: ExtraColors.link),
-                ),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: ExtraColors.white,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: ExtraColors.linkLight),
+                  ),
                 child: TextField(
                   controller: _searchController,
                   style: const TextStyle(
-                      color: ExtraColors.white, fontSize: 14),
+                      color: ExtraColors.black, fontSize: 14),
                   onChanged: (v) => setState(() => _query = v),
                   decoration: InputDecoration(
                     hintText: 'Search by name or SKU…',
@@ -223,12 +223,12 @@ class _InventoryViewState extends ConsumerState<InventoryView> {
                         decoration: BoxDecoration(
                           color: selected
                               ? f.color.withValues(alpha: 0.18)
-                              : ExtraColors.darkBlue,
+                              : ExtraColors.white,
                           borderRadius: BorderRadius.circular(20),
                           border: Border.all(
                             color: selected
                                 ? f.color.withValues(alpha: 0.5)
-                                : ExtraColors.link,
+                                : ExtraColors.linkLight,
                           ),
                         ),
                         child: Text(
@@ -272,7 +272,7 @@ class _InventoryViewState extends ConsumerState<InventoryView> {
 
                   return RefreshIndicator(
                     color: ExtraColors.plum,
-                    backgroundColor: ExtraColors.darkBlue,
+                    backgroundColor: ExtraColors.white,
                     onRefresh: () async =>
                         ref.invalidate(productsControllerProvider),
                     child: ListView.separated(

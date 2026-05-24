@@ -65,11 +65,16 @@ class EmptyState extends StatelessWidget {
                 decoration: BoxDecoration(
                   color: ExtraColors.plum.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(20),
-                  border: Border.all(color: ExtraColors.plum.withValues(alpha: 0.3)),
+                  border: Border.all(
+                      color: Theme.of(context).brightness == Brightness.light
+                          ? ExtraColors.lightAccent.withOpacity(0.3)
+                          : ExtraColors.darkAccent.withOpacity(0.3)),
                 ),
-                child: const Text('Clear filters',
+                child: Text('Clear filters',
                     style: TextStyle(
-                        color: ExtraColors.plum,
+                        color: Theme.of(context).brightness == Brightness.light
+                            ? ExtraColors.lightAccent
+                            : ExtraColors.darkAccent,
                         fontSize: 13,
                         fontWeight: FontWeight.w600)),
               ),

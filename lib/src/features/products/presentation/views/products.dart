@@ -42,6 +42,8 @@ class _ProductsViewState extends ConsumerState<ProductsView> {
   Widget build(BuildContext context) {
     final productsState = ref.watch(productsControllerProvider);
     final deviceWidth = MediaQuery.sizeOf(context).width;
+    final searchSurface = ExtraColors.white;
+    final borderColor = ExtraColors.linkLight;
 
     return Scaffold(
       appBar: AppBar(title: const Text("Products")),
@@ -54,14 +56,14 @@ class _ProductsViewState extends ConsumerState<ProductsView> {
                   padding: const EdgeInsets.fromLTRB(8, 8, 8, 0),
                   child: Container(
                     decoration: BoxDecoration(
-                      color: ExtraColors.darkBlue,
+                      color: searchSurface,
                       borderRadius: BorderRadius.circular(14),
-                      border: Border.all(color: ExtraColors.link),
+                      border: Border.all(color: borderColor),
                     ),
                     child: TextField(
                       controller: _searchController,
                       style: const TextStyle(
-                        color: ExtraColors.white,
+                        color: ExtraColors.black,
                         fontSize: 14,
                       ),
                       onChanged: (value) => setState(() => _query = value),
@@ -73,7 +75,7 @@ class _ProductsViewState extends ConsumerState<ProductsView> {
                         ),
                         prefixIcon: const Icon(
                           Icons.search_rounded,
-                          color: ExtraColors.darkGrey,
+                          color: ExtraColors.grey,
                           size: 20,
                         ),
                         suffixIcon: _query.isNotEmpty

@@ -18,10 +18,16 @@ import 'package:sales_system/src/features/authentication/presentation/views/prof
 import 'package:sales_system/src/features/authentication/presentation/views/change_password_view.dart';
 import 'package:sales_system/src/features/authentication/presentation/views/add_employee_view.dart';
 import 'package:sales_system/src/features/authentication/presentation/views/manage_employees_view.dart';
+import 'package:sales_system/src/features/deposits/presentation/views/deposits_view.dart';
+import 'package:sales_system/src/features/employees/presentation/views/employee_dashboard_view.dart';
+import 'package:sales_system/src/features/employees/presentation/views/employee_inventory_view.dart';
+import 'package:sales_system/src/features/employees/presentation/views/employee_sales_view.dart';
+import 'package:sales_system/src/features/procurements/presentation/views/procurements_view.dart';
+import 'package:sales_system/src/features/sales/presentation/views/sales_view.dart';
 
 CustomTransitionPage buildPageWithDefaultTransition<T>({
-  required BuildContext context, 
-  required GoRouterState state, 
+  required BuildContext context,
+  required GoRouterState state,
   required Widget child,
 }) {
   return CustomTransitionPage<T>(
@@ -45,12 +51,15 @@ CustomTransitionPage buildPageWithDefaultTransition<T>({
 
 final routerProvider = Provider((ref) {
   // Watch only properties that trigger a redirect to avoid full app rebuilds during loading/error
-  final isLoggedIn = ref.watch(authControllerProvider.select((s) => s.value != null));
-  final mustChange = ref.watch(authControllerProvider.select((s) => s.value?.mustChangePassword ?? false));
-  final role = ref.watch(authControllerProvider.select((s) => s.value?.role ?? 'employee'));
-  
+  final isLoggedIn =
+      ref.watch(authControllerProvider.select((s) => s.value != null));
+  final mustChange = ref.watch(authControllerProvider
+      .select((s) => s.value?.mustChangePassword ?? false));
+  final role = ref
+      .watch(authControllerProvider.select((s) => s.value?.role ?? 'employee'));
+
   final rootNavigatorKey = ref.watch(navigatorKey);
-  
+
   return GoRouter(
     navigatorKey: rootNavigatorKey,
     // Redirect to login if user isn't authenticated, or prevent going to login if they are
@@ -74,8 +83,15 @@ final routerProvider = Provider((ref) {
 
       // SPECIFIC ALLOWANCES
       // These routes are ALWAYS allowed for anyone logged in
-      if (location == '/' || location == '/revenue' || location == '/settings' || 
-          location == '/profile' || location == '/change-password' || location == '/unauthorized') {
+      if (location == '/' ||
+          location == '/revenue' ||
+          location == '/employee-dashboard' ||
+          location == '/employee-inventory' ||
+          location == '/employee-sales' ||
+          location == '/settings' ||
+          location == '/profile' ||
+          location == '/change-password' ||
+          location == '/unauthorized') {
         return null;
       }
 
@@ -86,15 +102,18 @@ final routerProvider = Provider((ref) {
         '/add-inventory',
         '/manage-employees',
         '/add-employee',
+        '/deposits',
+        '/procurements',
+        '/sales',
       ];
 
       // If they are trying to reach an admin-only route and are NOT an admin
       bool isTargetingAdminRoute = false;
       for (final route in adminOnlyRoutes) {
-          if (location == route || location.startsWith('$route/')) {
-              isTargetingAdminRoute = true;
-              break;
-          }
+        if (location == route || location.startsWith('$route/')) {
+          isTargetingAdminRoute = true;
+          break;
+        }
       }
 
       if (isTargetingAdminRoute && !isAdmin) {
@@ -104,20 +123,20 @@ final routerProvider = Provider((ref) {
 
       return null;
     },
-    
-  initialLocation: '/',
-  routes: [
+
+    initialLocation: '/',
+    routes: [
       // GoRoute(
       //   path: '/',
       //   builder: (context, state) => const HomeView(),
       // ),
-    // GoRoute(
-    //   path: '/details/:id', // Path parameter
-    //   builder: (context, state) {
-    //     final id = state.pathParameters['id']!;
-    //     return DetailsScreen(id: id);
-    //   },
-    // ),
+      // GoRoute(
+      //   path: '/details/:id', // Path parameter
+      //   builder: (context, state) {
+      //     final id = state.pathParameters['id']!;
+      //     return DetailsScreen(id: id);
+      //   },
+      // ),
       ShellRoute(
         builder: (context, state, child) {
           return HomeView(child: child); // inject routed page
@@ -126,61 +145,102 @@ final routerProvider = Provider((ref) {
           GoRoute(
             path: '/',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const ProductsView()
-            ),
+                context: context, state: state, child: const ProductsView()),
           ),
           GoRoute(
             path: '/dashboard',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const DashboardView()
+                context: context, state: state, child: const DashboardView()),
+          ),
+          GoRoute(
+            path: '/employee-dashboard',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const EmployeeDashboardView(),
             ),
           ),
           GoRoute(
             path: '/revenue',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const RevenueReportView()
-            ),
+                context: context,
+                state: state,
+                child: const RevenueReportView()),
           ),
           GoRoute(
             path: '/products',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const ProductsView()
-            ),
+                context: context, state: state, child: const ProductsView()),
           ),
           GoRoute(
             path: '/manage-inventory',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const InventoryView()
+                context: context, state: state, child: const InventoryView()),
+          ),
+          GoRoute(
+            path: '/employee-inventory',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const EmployeeInventoryView(),
             ),
           ),
           GoRoute(
             path: '/settings',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const SettingsView()
-            ),
+                context: context, state: state, child: const SettingsView()),
           ),
           GoRoute(
             path: '/profile',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const ProfileView()
-            ),
+                context: context, state: state, child: const ProfileView()),
           ),
           GoRoute(
             path: '/change-password',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const ChangePasswordView()
-            ),
+                context: context,
+                state: state,
+                child: const ChangePasswordView()),
           ),
           GoRoute(
             path: '/add-employee',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const AddEmployeeView()
-            ),
+                context: context, state: state, child: const AddEmployeeView()),
           ),
           GoRoute(
             path: '/manage-employees',
             pageBuilder: (context, state) => buildPageWithDefaultTransition(
-              context: context, state: state, child: const ManageEmployeesView()
+                context: context,
+                state: state,
+                child: const ManageEmployeesView()),
+          ),
+          GoRoute(
+            path: '/deposits',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+                context: context, state: state, child: const DepositsView()),
+          ),
+          GoRoute(
+            path: '/procurements',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const ProcurementsView(),
+            ),
+          ),
+          GoRoute(
+            path: '/sales',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const SalesView(),
+            ),
+          ),
+          GoRoute(
+            path: '/employee-sales',
+            pageBuilder: (context, state) => buildPageWithDefaultTransition(
+              context: context,
+              state: state,
+              child: const EmployeeSalesView(),
             ),
           ),
         ],
@@ -194,25 +254,23 @@ final routerProvider = Provider((ref) {
       //   builder: (context, state) => const DashboardView(),
       // ),
       GoRoute(
-      path: '/login',
-      pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        context: context, state: state, child: const LoginView()
+        path: '/login',
+        pageBuilder: (context, state) => buildPageWithDefaultTransition(
+            context: context, state: state, child: const LoginView()),
       ),
-    ),
-    GoRoute(
-      path: '/signup',
-      builder: (context, state) => const SignupView(),
-    ),
+      GoRoute(
+        path: '/signup',
+        builder: (context, state) => const SignupView(),
+      ),
       // GoRoute(
       //   path: '/revenue',
       //   builder: (context, state) => const RevenueView(),
       // ),
-    GoRoute(
-      path: '/add-inventory',
-      pageBuilder: (context, state) => buildPageWithDefaultTransition(
-        context: context, state: state, child: const AddInventoryView()
+      GoRoute(
+        path: '/add-inventory',
+        pageBuilder: (context, state) => buildPageWithDefaultTransition(
+            context: context, state: state, child: const AddInventoryView()),
       ),
-    ),
       // GoRoute(
       //   path: '/products',
       //   builder: (context, state) => const ProductsView(),
@@ -221,7 +279,7 @@ final routerProvider = Provider((ref) {
       //   path: '/manage-inventory',
       //   builder: (context, state) => const ManageInventoryView(),
       // ),
-  ],
-  errorBuilder: (context, state) => const NotFoundView(),
-);
+    ],
+    errorBuilder: (context, state) => const NotFoundView(),
+  );
 });

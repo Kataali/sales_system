@@ -1,11 +1,13 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter/services.dart';
 import 'package:sales_system/src/core/constants/app_router.dart';
 import 'package:sales_system/src/core/providers/theme_provider.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await HardwareKeyboard.instance.syncKeyboardState();
 
   // Custom error handling using Fluent UI
   ErrorWidget.builder = (FlutterErrorDetails details) => ScaffoldPage(
@@ -44,15 +46,13 @@ class MyApp extends ConsumerWidget {
       title: 'Food Sales System',
       theme: FluentThemeData(
         brightness: Brightness.light,
-        scaffoldBackgroundColor: ExtraColors.skyBlue,
+        scaffoldBackgroundColor: ExtraColors.lightGrey,
         cardColor: ExtraColors.white,
-        accentColor: Colors.blue, 
       ),
       darkTheme: FluentThemeData(
         brightness: Brightness.dark,
         scaffoldBackgroundColor: ExtraColors.darkBlue,
-        cardColor: const Color(0xFF1E1E2C),
-        accentColor: Colors.blue,
+        cardColor: ExtraColors.grey,
       ),
       themeMode: themeMode,
       routerConfig: router,

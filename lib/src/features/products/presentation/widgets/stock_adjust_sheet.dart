@@ -101,7 +101,7 @@ class StockAdjustSheetState extends ConsumerState<StockAdjustSheet> {
       builder: (_, scrollController) {
         return Container(
           decoration: const BoxDecoration(
-            color: ExtraColors.darkBlue,
+            color: ExtraColors.white,
             borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
           ),
           child: Column(
@@ -148,7 +148,7 @@ class StockAdjustSheetState extends ConsumerState<StockAdjustSheet> {
                               Text(
                                 widget.product.name,
                                 style: const TextStyle(
-                                    color: ExtraColors.white,
+                                    color: ExtraColors.black,
                                     fontSize: 16,
                                     fontWeight: FontWeight.w700),
                               ),
@@ -231,9 +231,9 @@ class StockAdjustSheetState extends ConsumerState<StockAdjustSheet> {
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16, vertical: 12),
                       decoration: BoxDecoration(
-                        color: ExtraColors.blue,
+                        color: ExtraColors.lightGrey,
                         borderRadius: BorderRadius.circular(14),
-                        border: Border.all(color: ExtraColors.link),
+                        border: Border.all(color: ExtraColors.linkLight),
                       ),
                       child: Row(
                         children: [
@@ -244,7 +244,7 @@ class StockAdjustSheetState extends ConsumerState<StockAdjustSheet> {
                               children: [
                                 Text(v.size,
                                     style: const TextStyle(
-                                        color: ExtraColors.white,
+                                        color: ExtraColors.black,
                                         fontSize: 14,
                                         fontWeight: FontWeight.w600)),
                                 const SizedBox(height: 2),

@@ -25,9 +25,9 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: ExtraColors.darkBlue,
+        color: ExtraColors.white,
         borderRadius: BorderRadius.circular(16),
-        border: Border.all(color: ExtraColors.link),
+        border: Border.all(color: ExtraColors.linkLight),
       ),
       child: Column(
         children: [
@@ -79,7 +79,7 @@ class ProductCard extends StatelessWidget {
                             child: Text(
                               product.name,
                               style: const TextStyle(
-                                color: ExtraColors.white,
+                                color: ExtraColors.black,
                                 fontSize: 14,
                                 fontWeight: FontWeight.w600,
                                 height: 1.3,
