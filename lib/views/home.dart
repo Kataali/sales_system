@@ -2,7 +2,7 @@ import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconly/iconly.dart';
+import 'package:flutter_iconly_plus/flutter_iconly_plus.dart';
 import 'package:sales_system/src/features/authentication/presentation/providers/auth_provider.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart'; // Ensure ExtraColors is imported
 

@@ -1,7 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:iconly/iconly.dart';
+import 'package:flutter_iconly_plus/flutter_iconly_plus.dart';
 import 'package:sales_system/shared/presentation/ui/loading_overlay.dart';
 import 'package:sales_system/shared/presentation/utils/app_top_snackbar.dart';
 import 'package:sales_system/src/core/constants/scaffold_key.dart';

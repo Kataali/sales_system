@@ -43,4 +43,8 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 pubspec.lock
-pubspec.lock
+
+# Environment variables
+.env
+.env*.local
+

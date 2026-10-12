@@ -1,5 +1,5 @@
 import 'package:fluent_ui/fluent_ui.dart';
-import 'package:iconly/iconly.dart';
+import 'package:flutter_iconly_plus/flutter_iconly_plus.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 
 class SettingsTile extends StatelessWidget {

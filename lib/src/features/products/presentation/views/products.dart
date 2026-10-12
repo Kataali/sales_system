@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:iconly/iconly.dart';
+import 'package:flutter_iconly_plus/flutter_iconly_plus.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 import 'package:sales_system/shared/presentation/ui/loading_overlay.dart';
 import 'package:sales_system/shared/presentation/ui/empty_screen.dart';
