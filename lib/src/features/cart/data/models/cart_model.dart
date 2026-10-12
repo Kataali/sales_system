@@ -12,15 +12,28 @@ class ProductModel extends Product {
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {
+    final rawVariants = json['variants'];
+    List<ProductVariantModel> variants = [];
+    if (rawVariants is List) {
+      variants = rawVariants
+          .whereType<Map>()
+          .map(
+              (v) => ProductVariantModel.fromJson(Map<String, dynamic>.from(v)))
+          .toList();
+    }
+
+    final computedStock = (json['totalStock'] as num?)?.toInt() ??
+        variants.fold<int>(0, (sum, v) => sum + v.stock);
+
     return ProductModel(
-      id: json['id'],
-      name: json['name'],
-      imageUrl: json['imageUrl'],
-      sku: json['sku'],
-      totalStock: json['totalStock'],
-      variants: (json['variants'] as List)
-          .map((v) => ProductVariantModel.fromJson(v))
-          .toList(),
+      id: (json['id'] as num?)?.toInt() ??
+          int.tryParse(json['id']?.toString() ?? '0') ??
+          0,
+      name: json['name']?.toString() ?? '',
+      imageUrl: json['imageUrl']?.toString() ?? '',
+      sku: json['sku']?.toString() ?? '',
+      totalStock: computedStock,
+      variants: variants,
     );
   }
 

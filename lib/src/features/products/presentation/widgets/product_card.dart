@@ -40,29 +40,40 @@ class ProductCard extends StatelessWidget {
                 // Image
                 ClipRRect(
                   borderRadius: BorderRadius.circular(12),
-                  child: CachedNetworkImage(
-                    imageUrl: product.imageUrl,
-                    width: 64,
-                    height: 64,
-                    fit: BoxFit.cover,
-                    placeholder: (_, __) => Container(
-                      width: 64,
-                      height: 64,
-                      color: ExtraColors.link,
-                      child: const Icon(Icons.image_outlined,
-                          color: ExtraColors.darkGrey, size: 24),
-                    ),
-                    errorWidget: (_, __, ___) => Container(
-                      width: 64,
-                      height: 64,
-                      decoration: BoxDecoration(
-                        color: ExtraColors.plum.withValues(alpha: 0.08),
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: const Icon(Icons.inventory_2_outlined,
-                          color: ExtraColors.plum, size: 24),
-                    ),
-                  ),
+                  child: product.imageUrl.trim().isNotEmpty
+                      ? CachedNetworkImage(
+                          imageUrl: product.imageUrl,
+                          width: 64,
+                          height: 64,
+                          fit: BoxFit.cover,
+                          placeholder: (_, __) => Container(
+                            width: 64,
+                            height: 64,
+                            color: ExtraColors.link,
+                            child: const Icon(Icons.image_outlined,
+                                color: ExtraColors.darkGrey, size: 24),
+                          ),
+                          errorWidget: (_, __, ___) => Container(
+                            width: 64,
+                            height: 64,
+                            decoration: BoxDecoration(
+                              color: ExtraColors.plum.withValues(alpha: 0.08),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: const Icon(Icons.inventory_2_outlined,
+                                color: ExtraColors.plum, size: 24),
+                          ),
+                        )
+                      : Container(
+                          width: 64,
+                          height: 64,
+                          decoration: BoxDecoration(
+                            color: ExtraColors.plum.withValues(alpha: 0.08),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: const Icon(Icons.inventory_2_outlined,
+                              color: ExtraColors.plum, size: 24),
+                        ),
                 ),
                 const SizedBox(width: 12),
 

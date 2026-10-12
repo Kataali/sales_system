@@ -1,4 +1,5 @@
 import 'package:sales_system/src/features/products/domain/entities/product.dart';
+
 class ProductVariantModel extends ProductVariant {
   ProductVariantModel({
     required super.size,
@@ -8,9 +9,9 @@ class ProductVariantModel extends ProductVariant {
 
   factory ProductVariantModel.fromJson(Map<String, dynamic> json) {
     return ProductVariantModel(
-      size: json['size'],
-      price: (json['price'] as num).toDouble(),
-      stock: json['stock'],
+      size: json['size']?.toString() ?? '',
+      price: (json['price'] as num?)?.toDouble() ?? 0.0,
+      stock: (json['stock'] as num?)?.toInt() ?? 0,
     );
   }
 

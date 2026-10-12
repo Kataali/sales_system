@@ -29,35 +29,7 @@ class ProductGridCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Container(
-              color: ExtraColors.lightGrey,
-              child: product.imageUrl.startsWith('assets/')
-                  ? Image.asset(
-                      product.imageUrl,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      errorBuilder: (context, error, stackTrace) => Center(
-                        child: Image.asset(
-                          'assets/fallback.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    )
-                  : CachedNetworkImage(
-                      imageUrl: product.imageUrl,
-                      fit: BoxFit.cover,
-                      width: double.infinity,
-                      placeholder: (context, url) => const Center(
-                        child: CircularProgressIndicator(strokeWidth: 2),
-                      ),
-                      errorWidget: (context, url, error) => Center(
-                        child: Image.asset(
-                          'assets/fallback.png',
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-            ),
+            child: _buildProductImage(),
           ),
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -134,6 +106,70 @@ class ProductGridCard extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildProductImage() {
+    final image = product.imageUrl.trim();
+    if (image.isEmpty) {
+      return Container(
+        color: ExtraColors.lightGrey,
+        alignment: Alignment.center,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.inventory_2_outlined,
+              size: 40,
+              color: ExtraColors.darkGrey.withValues(alpha: 0.6),
+            ),
+            const SizedBox(height: 6),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Text(
+                product.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  fontSize: 11,
+                  fontWeight: FontWeight.w500,
+                  color: ExtraColors.darkGrey.withValues(alpha: 0.8),
+                ),
+              ),
+            ),
+          ],
+        ),
+      );
+    }
+
+    if (image.startsWith('assets/')) {
+      return Image.asset(
+        image,
+        fit: BoxFit.cover,
+        width: double.infinity,
+        errorBuilder: (context, error, stackTrace) => Center(
+          child: Image.asset(
+            'assets/fallback.png',
+            fit: BoxFit.cover,
+          ),
+        ),
+      );
+    }
+
+    return CachedNetworkImage(
+      imageUrl: image,
+      fit: BoxFit.cover,
+      width: double.infinity,
+      placeholder: (context, url) => const Center(
+        child: CircularProgressIndicator(strokeWidth: 2),
+      ),
+      errorWidget: (context, url, error) => Center(
+        child: Image.asset(
+          'assets/fallback.png',
+          fit: BoxFit.cover,
+        ),
       ),
     );
   }

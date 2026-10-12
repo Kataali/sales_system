@@ -126,19 +126,28 @@ class StockAdjustSheetState extends ConsumerState<StockAdjustSheet> {
                       children: [
                         ClipRRect(
                           borderRadius: BorderRadius.circular(12),
-                          child: CachedNetworkImage(
-                            imageUrl: widget.product.imageUrl,
-                            width: 48,
-                            height: 48,
-                            fit: BoxFit.cover,
-                            errorWidget: (_, __, ___) => Container(
-                              width: 48,
-                              height: 48,
-                              color: ExtraColors.plum.withValues(alpha: 0.08),
-                              child: const Icon(Icons.inventory_2_outlined,
-                                  color: ExtraColors.plum, size: 20),
-                            ),
-                          ),
+                          child: widget.product.imageUrl.trim().isNotEmpty
+                              ? CachedNetworkImage(
+                                  imageUrl: widget.product.imageUrl,
+                                  width: 48,
+                                  height: 48,
+                                  fit: BoxFit.cover,
+                                  errorWidget: (_, __, ___) => Container(
+                                    width: 48,
+                                    height: 48,
+                                    color: ExtraColors.plum.withValues(alpha: 0.08),
+                                    child: const Icon(Icons.inventory_2_outlined,
+                                        color: ExtraColors.plum, size: 20),
+                                  ),
+                                )
+                              : Container(
+                                  width: 48,
+                                  height: 48,
+                                  color:
+                                      ExtraColors.plum.withValues(alpha: 0.08),
+                                  child: const Icon(Icons.inventory_2_outlined,
+                                      color: ExtraColors.plum, size: 20),
+                                ),
                         ),
                         const SizedBox(width: 12),
                         Expanded(

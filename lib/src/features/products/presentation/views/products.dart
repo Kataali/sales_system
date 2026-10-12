@@ -3,13 +3,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_iconly_plus/flutter_iconly_plus.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 import 'package:sales_system/shared/presentation/ui/loading_overlay.dart';
-import 'package:sales_system/shared/presentation/ui/empty_screen.dart';
 import 'dart:math';
 import 'package:sales_system/src/features/products/domain/entities/product.dart';
 import 'package:sales_system/src/features/products/presentation/providers/products_provider.dart';
 import 'package:sales_system/src/features/products/presentation/views/product_grid_card.dart';
 import 'checkout_pane.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import '../widgets/products_empty_state.dart';
 
 class ProductsView extends ConsumerStatefulWidget {
   const ProductsView({super.key});
@@ -102,12 +102,22 @@ class _ProductsViewState extends ConsumerState<ProductsView> {
                   child: productsState.when(
                     data: (products) {
                       if (products.isEmpty) {
-                        return const EmptyScreen();
+                        return ProductsEmptyState.noProducts(
+                          onRefresh: () => ref
+                              .read(productsControllerProvider.notifier)
+                              .fetchProducts(),
+                        );
                       }
 
                       final filteredProducts = _applySearch(products);
                       if (filteredProducts.isEmpty) {
-                        return const EmptyScreen();
+                        return ProductsEmptyState.noSearchResults(
+                          query: _query,
+                          onClear: () {
+                            _searchController.clear();
+                            setState(() => _query = '');
+                          },
+                        );
                       }
 
                       return GridView.builder(
@@ -143,7 +153,12 @@ class _ProductsViewState extends ConsumerState<ProductsView> {
                       );
                     },
                     loading: () => const Center(child: LoadingOverlay()),
-                    error: (err, _) => Center(child: Text(err.toString())),
+                    error: (err, _) => ProductsEmptyState.error(
+                      error: err.toString(),
+                      onRetry: () => ref
+                          .read(productsControllerProvider.notifier)
+                          .fetchProducts(),
+                    ),
                   ),
                 ),
               ],
