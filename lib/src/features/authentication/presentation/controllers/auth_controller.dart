@@ -36,13 +36,13 @@ class AuthController extends StateNotifier<AsyncValue<User?>> {
     final currentUser = state.value;
     if (currentUser == null) return;
     
-    // Setting state to loading while preserving current user data
-    state = const AsyncLoading<User?>().copyWithPrevious(state);
+    // Setting state to loading while operation executes
+    state = const AsyncLoading();
     
     final result = await repository.changePassword(currentPassword, newPassword);
     
     result.fold(
-      (failure) => state = AsyncError<User?>(failure.message, StackTrace.current).copyWithPrevious(state),
+      (failure) => state = AsyncError<User?>(failure.message, StackTrace.current),
       (success) => state = AsyncData(currentUser),
     );
   }

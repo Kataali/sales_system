@@ -185,10 +185,10 @@ class PillButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Button(
       style: ButtonStyle(
-        backgroundColor: ButtonState.all(
+        backgroundColor: WidgetStateProperty.all(
           isSelected ? FluentTheme.of(context).accentColor : null,
         ),
-        shape: ButtonState.all(
+        shape: WidgetStateProperty.all(
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         ),
       ),

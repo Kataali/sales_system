@@ -14,8 +14,6 @@ class ProductsRemoteDatasource {
   Future<List<ProductModel>> getProducts() async {
     final token = await storage.getAccessToken();
 
-    await Future.delayed(const Duration(seconds: 3)); // Simulate network delay
-
     if (token == null) throw Exception("No auth token found");
 
     final url = Uri.parse("$baseUrl${Endpoints.products}");

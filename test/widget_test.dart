@@ -1,30 +1,51 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:sales_system/main.dart';
+import 'package:sales_system/widgets/elevated_button.dart';
+import 'package:sales_system/src/features/products/presentation/widgets/products_empty_state.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  testWidgets('CustomElevatedButton renders text and triggers callback', (WidgetTester tester) async {
+    bool wasPressed = false;
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: CustomElevatedButton(
+            buttonText: 'Click Me',
+            onPressed: () {
+              wasPressed = true;
+            },
+          ),
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    expect(find.text('Click Me'), findsOneWidget);
+    await tester.tap(find.text('Click Me'));
+    expect(wasPressed, isTrue);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('ProductsEmptyState renders no products state correctly', (WidgetTester tester) async {
+    bool refreshed = false;
+
+    await tester.pumpWidget(
+      MaterialApp(
+        home: Scaffold(
+          body: ProductsEmptyState.noProducts(
+            onRefresh: () {
+              refreshed = true;
+            },
+          ),
+        ),
+      ),
+    );
+    await tester.pumpAndSettle();
+
+    expect(find.text('No Products Available'), findsOneWidget);
+    expect(find.text('Refresh Catalog'), findsOneWidget);
+
+    await tester.tap(find.text('Refresh Catalog'));
+    expect(refreshed, isTrue);
   });
 }
+

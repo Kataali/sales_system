@@ -12,7 +12,6 @@ class DashboardRemoteDataSource {
 
   Future<Map<String, dynamic>> fetchDashboard(String token) async {
     try {
-      await Future.delayed(const Duration(seconds: 2));
       final response = await http.get(
         Uri.parse('$baseUrl${Endpoints.dashboard}'),
         headers: {

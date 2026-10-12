@@ -1,6 +1,7 @@
 import 'package:fluent_ui/fluent_ui.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:sales_system/src/core/constants/app_router.dart';
 import 'package:sales_system/src/core/providers/theme_provider.dart';
 import 'package:sales_system/shared/presentation/theme/app_colors.dart';
@@ -8,6 +9,12 @@ import 'package:sales_system/shared/presentation/theme/app_colors.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await HardwareKeyboard.instance.syncKeyboardState();
+
+  try {
+    await dotenv.load(fileName: ".env");
+  } catch (e) {
+    debugPrint('Could not load .env file: $e');
+  }
 
   // Custom error handling using Fluent UI
   ErrorWidget.builder = (FlutterErrorDetails details) => ScaffoldPage(

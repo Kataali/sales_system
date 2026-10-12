@@ -25,7 +25,6 @@ class AuthRemoteDatasource {
     String password,
   ) async {
     await guardConnectivity();
-    await Future.delayed(const Duration(seconds: 2));
     final url = Uri.parse("$_baseUrl${Endpoints.login}");
 
     final response = await http.post(
@@ -53,7 +52,6 @@ class AuthRemoteDatasource {
     required String role,
   }) async {
     await guardConnectivity();
-    await Future.delayed(const Duration(seconds: 1));
     final url = Uri.parse("$_baseUrl${Endpoints.employees}");
     final headers = await _getHeaders();
 
@@ -76,7 +74,6 @@ class AuthRemoteDatasource {
 
   Future<List<Map<String, dynamic>>> getEmployees() async {
     await guardConnectivity();
-    await Future.delayed(const Duration(seconds: 1));
     final url = Uri.parse("$_baseUrl${Endpoints.employees}");
     final headers = await _getHeaders();
 
@@ -110,7 +107,6 @@ class AuthRemoteDatasource {
 
   Future<void> updateEmployeeStatus(String id, bool isActive) async {
     await guardConnectivity();
-    await Future.delayed(const Duration(milliseconds: 500));
     final url = Uri.parse("$_baseUrl${Endpoints.updateEmployeeStatus(id)}");
     final headers = await _getHeaders();
 
@@ -130,7 +126,6 @@ class AuthRemoteDatasource {
 
   Future<Map<String, dynamic>> resetEmployeePassword(String id) async {
     await guardConnectivity();
-    await Future.delayed(const Duration(milliseconds: 500));
     final url = Uri.parse("$_baseUrl${Endpoints.resetEmployeePassword(id)}");
     final headers = await _getHeaders();
 
@@ -150,7 +145,6 @@ class AuthRemoteDatasource {
   Future<void> changePassword(
       String currentPassword, String newPassword) async {
     await guardConnectivity();
-    await Future.delayed(const Duration(milliseconds: 500));
     final url = Uri.parse("$_baseUrl${Endpoints.changePassword}");
     final headers = await _getHeaders();
 

@@ -23,6 +23,10 @@ class ProductsController extends StateNotifier<AsyncValue<List<Product>>> {
     );
   }
 
+  void clear() {
+    state = const AsyncValue.data([]);
+  }
+
   Future<void> createProduct({
     required String name,
     Uint8List? imageBytes,

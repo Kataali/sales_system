@@ -25,7 +25,7 @@ class SalesLineChart extends StatelessWidget {
       FlSpot(13, 3.9),
     ];
 
-    Widget BottomTitleWidgets(double value, TitleMeta meta) {
+    Widget bottomTitleWidgets(double value, TitleMeta meta) {
       const style = TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 14,
@@ -55,7 +55,7 @@ class SalesLineChart extends StatelessWidget {
     }
 
     SideTitles bottomTitles() => SideTitles(
-          getTitlesWidget: BottomTitleWidgets,
+          getTitlesWidget: bottomTitleWidgets,
           showTitles: true,
           interval: 1,
           reservedSize: 40,

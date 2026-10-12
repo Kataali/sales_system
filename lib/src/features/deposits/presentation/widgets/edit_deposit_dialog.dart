@@ -276,7 +276,7 @@ class _EditDepositDialogState extends ConsumerState<EditDepositDialog> {
 
               // Status
               DropdownButtonFormField<String>(
-                value: _status,
+                initialValue: _status,
                 style: const TextStyle(color: ExtraColors.black),
                 dropdownColor: ExtraColors.white,
                 decoration: InputDecoration(

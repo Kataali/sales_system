@@ -65,6 +65,7 @@ class StockAdjustSheetState extends ConsumerState<StockAdjustSheet> {
   Future<void> _save() async {
     // Build the payload you'd send to your API:
     // List<{ size, newStock }> for each variant
+    // ignore: unused_local_variable
     final updates = List.generate(
       widget.product.variants.length,
       (i) => {

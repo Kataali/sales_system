@@ -1,5 +1,14 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 class ApiConstants {
-  static const baseUrl = "http://localhost:3000";
+  static String get baseUrl {
+    if (!dotenv.isInitialized) {
+      return "http://localhost:3000";
+    }
+    return dotenv.env['API_BASE_URL'] ??
+        dotenv.env['BASE_URL'] ??
+        "http://localhost:3000";
+  }
 }
 
 class Endpoints {

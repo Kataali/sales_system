@@ -17,7 +17,6 @@ class CustomElevatedButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme color = Theme.of(context).colorScheme;
     Color backgroundColor = Theme.of(context).brightness == Brightness.light
         ? ExtraColors.white
         : ExtraColors.darkGrey;
@@ -39,7 +38,7 @@ class CustomElevatedButton extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            leading!,
+            if (leading != null) leading!,
             Text(buttonText),
           ],
         ),
